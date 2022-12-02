@@ -12,6 +12,7 @@
 		4E37BC6C2935012E0034A316 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37BC6B2935012E0034A316 /* FeedViewController.swift */; };
 		4E37BC712935012F0034A316 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E37BC702935012F0034A316 /* Assets.xcassets */; };
 		4E37BC742935012F0034A316 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E37BC722935012F0034A316 /* LaunchScreen.storyboard */; };
+		4E3DF59C2938C71D0023B7D9 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3DF59B2938C71D0023B7D9 /* ProfileHeaderView.swift */; };
 		4EF2134A2936890B00CE1CD3 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF213492936890B00CE1CD3 /* PostViewController.swift */; };
 		4EF2134C2936894C00CE1CD3 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2134B2936894C00CE1CD3 /* InfoViewController.swift */; };
 		4EF2134E2936897600CE1CD3 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2134D2936897600CE1CD3 /* ProfileViewController.swift */; };
@@ -26,6 +27,7 @@
 		4E37BC702935012F0034A316 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E37BC732935012F0034A316 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E37BC752935012F0034A316 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E3DF59B2938C71D0023B7D9 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		4EF213492936890B00CE1CD3 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		4EF2134B2936894C00CE1CD3 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		4EF2134D2936897600CE1CD3 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 				4E37BC672935012E0034A316 /* AppDelegate.swift */,
 				4E37BC692935012E0034A316 /* SceneDelegate.swift */,
 				4EF21348293688DF00CE1CD3 /* VC */,
+				4E3DF59A2938C6F80023B7D9 /* Profile */,
 				4E37BC702935012F0034A316 /* Assets.xcassets */,
 				4E37BC722935012F0034A316 /* LaunchScreen.storyboard */,
 				4E37BC752935012F0034A316 /* Info.plist */,
@@ -73,11 +76,19 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
+		4E3DF59A2938C6F80023B7D9 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				4EF2134D2936897600CE1CD3 /* ProfileViewController.swift */,
+				4E3DF59B2938C71D0023B7D9 /* ProfileHeaderView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		4EF21348293688DF00CE1CD3 /* VC */ = {
 			isa = PBXGroup;
 			children = (
 				4E37BC6B2935012E0034A316 /* FeedViewController.swift */,
-				4EF2134D2936897600CE1CD3 /* ProfileViewController.swift */,
 				4EF213492936890B00CE1CD3 /* PostViewController.swift */,
 				4EF2134B2936894C00CE1CD3 /* InfoViewController.swift */,
 			);
@@ -161,6 +172,7 @@
 				4E37BC6A2935012E0034A316 /* SceneDelegate.swift in Sources */,
 				4EF21350293689EC00CE1CD3 /* Post.swift in Sources */,
 				4EF2134C2936894C00CE1CD3 /* InfoViewController.swift in Sources */,
+				4E3DF59C2938C71D0023B7D9 /* ProfileHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

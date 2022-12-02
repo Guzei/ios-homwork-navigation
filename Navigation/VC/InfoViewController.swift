@@ -28,10 +28,14 @@ final class InfoViewController: UIViewController {
                                                                                         // ! 9.3 с заданным title, message
         let alert = UIAlertController(title: "Alert!",  message: "Clouse modal window?", preferredStyle: .alert) // Всего два варианта // .alert .actionSheet
 
-                                                                            // ! 9.4 и двумя UIAlertAction.
-                                                                            // ! 9.5 При нажатии на UIAlertAction в консоль должно выводиться сообщение.
-        alert.addAction(UIAlertAction(title: "Yes", style: .default   ) { _ in print("Yes"); self.dismiss(animated: true)}) // ну очень хотелось в одну строку
-        alert.addAction(UIAlertAction(title: "No", style: .destructive) { _ in NSLog("The \"No\" alert occured.") }) // из примера в документации
+                                                                                        // ! 9.4 и двумя UIAlertAction.
+        alert.addAction(UIAlertAction(title: "Yes", style: .default   ) { _ in
+            print("Yes");                                                   // ! 9.5 При нажатии на UIAlertAction в консоль должно выводиться сообщение.
+            self.dismiss(animated: true)
+        })
+        alert.addAction(UIAlertAction(title: "No", style: .destructive) { _ in
+            NSLog("The \"No\" alert occured.")                                          // 9.5 из примера в документации
+        })
 
         present(alert, animated: true, completion: nil)
     }
