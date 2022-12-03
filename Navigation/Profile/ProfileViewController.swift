@@ -22,16 +22,14 @@ final class ProfileViewController: UIViewController {
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        //        print(view.safeAreaLayoutGuide.layoutFrame.width)
         hvProfile.frame = view.safeAreaLayoutGuide.layoutFrame
         hvProfile.backgroundColor = .systemGray3
-        print(hvProfile.frame.width)
 
-        let button = hvProfile.statusButton
-        button.frame = CGRect(x: hvProfile.padding,
-                              y: hvProfile.avatarSize + 2 * hvProfile.padding,
-                              width: Int(hvProfile.frame.width) - hvProfile.padding * 2,
-                              height: 50
+        // с персчётом размеров при повороте экрана
+        hvProfile.statusButton.frame = CGRect(x: hvProfile.padding,
+                                              y: hvProfile.avatarSize + 2 * hvProfile.padding,
+                                              width: Int(hvProfile.frame.width) - hvProfile.padding * 2,
+                                              height: 50
         )
     }
 }

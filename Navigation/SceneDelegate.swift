@@ -60,18 +60,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let vcFeed = FeedViewController()                       // ! 5.1 Создайте FeedViewController и ProfileViewController
         let vcProfile = ProfileViewController()
-//        print("\nvcProfile:",vcProfile)
-//        print("\nvcProfile.inputView:",vcProfile.inputView ?? "no inputView")
-//        print("\nvcProfile.inputViewController:",vcProfile.inputViewController ?? "no inputViewController")
-//        print("\nvcProfile.accessibilityFrame:",vcProfile.accessibilityFrame)
-//        print("\nvcProfile.title:",vcProfile.title ?? "no title")
-//        print("\nvcProfile.edgesForExtendedLayout:",vcProfile.edgesForExtendedLayout)
-//        print("\nvcProfile.safeAreaInsets:",vcProfile.view.safeAreaInsets)
-//        print("\nvcProfile.safeAreaLayoutGuide:",vcProfile.view.safeAreaLayoutGuide)
-//        print("\nvcProfile.view:",vcProfile.view ?? "no view")
-//        print("\nvcProfile.view.subviews:",vcProfile.view.subviews)
-//        print("\nvcProfile.view.superview:",vcProfile.view.superview ?? "no superview")
-//        print("\nvcProfile.hvProfile.superview:",vcProfile.hvProfile.superview ?? "no superview")
 
         let ncFeed = UINavigationController(rootViewController: vcFeed)
         let ncProfile = UINavigationController(rootViewController: vcProfile)
