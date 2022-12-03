@@ -22,13 +22,37 @@ final class ProfileViewController: UIViewController {
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        
         hvProfile.frame = view.safeAreaLayoutGuide.layoutFrame
         hvProfile.backgroundColor = .systemGray3
 
-        // с персчётом размеров при повороте экрана
-        hvProfile.statusButton.frame = CGRect(x: hvProfile.padding,
-                                              y: hvProfile.avatarSize + 2 * hvProfile.padding,
-                                              width: Int(hvProfile.frame.width) - hvProfile.padding * 2,
+        let statusFieldHeight = 40
+
+        // персчёт размеров при повороте экрана
+        let textWidth = Int(hvProfile.frame.width) - hvProfile.avatarWHFull - hvProfile.pagePadding
+        let buttonWidth = Int(hvProfile.frame.width) - hvProfile.pagePadding * 2
+
+        hvProfile.avatarTitle.frame = CGRect(x: hvProfile.avatarWHFull,
+                                             y: 27,
+                                             width: textWidth,
+                                             height: hvProfile.fontSize.avatar.rawValue
+        )
+
+        hvProfile.statusLabel.frame = CGRect(x: hvProfile.avatarWHFull,
+                                             y: hvProfile.avatarWHFull - 34 - hvProfile.fontSize.statusLabel.rawValue,
+                                             width: textWidth,
+                                             height: hvProfile.fontSize.statusLabel.rawValue
+        )
+
+        hvProfile.statusField.frame = CGRect(x: hvProfile.avatarWHFull,
+                                             y: Int(hvProfile.statusLabel.frame.maxY) + hvProfile.pagePadding, // отступ от предыдущего
+                                             width: textWidth,
+                                             height: statusFieldHeight
+        )
+
+        hvProfile.statusButton.frame = CGRect(x: hvProfile.pagePadding,
+                                              y: Int(hvProfile.statusField.frame.maxY) + hvProfile.pagePadding,
+                                              width: buttonWidth,
                                               height: 50
         )
     }
