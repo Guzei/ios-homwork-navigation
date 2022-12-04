@@ -56,26 +56,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
 
         let tabBarController = UITabBarController()             // ! 3.1 В SceneDelegate.swift добавьте UITabBarController
-        tabBarController.tabBar.backgroundColor = .systemGray
-        tabBarController.tabBar.tintColor = colors.0
-        tabBarController.tabBar.unselectedItemTintColor = colors.1
-
-                                                                // ! 3.2 Добавьте в него два `UINavigationController`.
-        let ncFeed = UINavigationController()                   // ! Первый будет показывать ленту пользователя
-        let ncProfile = UINavigationController()                // ! а второй — профиль
-        tabBarController.viewControllers = [ncFeed, ncProfile]  // если tabBarController.selectedIndex = 1 , то начнём показ с профиля
-
-                                                                // ! 4.1 Измените Tab Bar Item у добавленных контроллеров,
-                                                                // ! добавьте заголовок и картинку.
-        ncFeed.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "doc.plaintext"), tag: 0) // title в связанном VC перекрывает
-        ncProfile.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.text.rectangle"), tag: 0) // зачем tag пока непонятно
+        tabBarController.tabBar.backgroundColor = .systemGray6  // для соответствия макету
 
         let vcFeed = FeedViewController()                       // ! 5.1 Создайте FeedViewController и ProfileViewController
         let vcProfile = ProfileViewController()
-                                                                // ! 5.2 и добавьте их как root view controller у навигационных контроллеров.
-        ncFeed.setViewControllers([vcFeed], animated: true)     // Хотя можно было бы в 3.2: let ncFeed = UINavigationController(rootViewController: vcFeed)
-        ncProfile.setViewControllers([vcProfile], animated: true) // тут они рутовые, потому что первые? Верно ли?
 
+        let ncFeed = UINavigationController(rootViewController: vcFeed)
+        let ncProfile = UINavigationController(rootViewController: vcProfile)
+
+        tabBarController.viewControllers = [ncFeed, ncProfile]
+        tabBarController.selectedIndex = 1                      // на время работы с профилем. На клик меньше.
+
+        ncFeed.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "doc.plaintext"), tag: 0) // title в связанном VC перекрывает
+        ncProfile.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.text.rectangle"), tag: 0) // зачем tag пока непонятно
+
+
+        
         let window = UIWindow(windowScene: scene)
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
