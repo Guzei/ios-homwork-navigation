@@ -45,7 +45,7 @@ final class ProfileViewController: UIViewController {
         )
 
         hvProfile.statusField.frame = CGRect(x: hvProfile.avatarWHFull,
-                                             y: Int(hvProfile.statusLabel.frame.maxY) + hvProfile.pagePadding, // отступ от предыдущего
+                                             y: Int(hvProfile.statusLabel.frame.maxY) + hvProfile.pagePadding, 
                                              width: textWidth,
                                              height: statusFieldHeight
         )

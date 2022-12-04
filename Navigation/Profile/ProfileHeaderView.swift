@@ -5,13 +5,6 @@
 //  Created by Igor Guzei on 01.12.2022.
 //
 
-/*
-
- Макеты и действия по нажатию кнопки для задания 1 и 2 не совпадают.
- Для первой части заания сделан коммит
-
-*/
-
 import UIKit
 
 final class ProfileHeaderView: UIView, UITextFieldDelegate {
@@ -89,7 +82,7 @@ final class ProfileHeaderView: UIView, UITextFieldDelegate {
     }
 
     @objc func buttonPressed() {
-        statusLabel.text = statusText       // проверка на статуса на "не пустой" не позволит юзеру обнулить свой статус. А это легальный случай.
+        statusLabel.text = statusText       // вместо принудительной очистки поставил "крестик" очистки
     }
 
     // ввод по Enter. Было в лекции.
