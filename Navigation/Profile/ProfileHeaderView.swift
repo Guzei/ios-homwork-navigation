@@ -23,7 +23,7 @@ final class ProfileHeaderView: UIView, UITextFieldDelegate {
     let statusButton = UIButton()
 
     let pagePadding = 16
-    let avatarSize = 100
+    let avatarSize = 120
     var avatarWHFull: Int = 0
 
     enum FontSize: Int {
@@ -67,6 +67,7 @@ final class ProfileHeaderView: UIView, UITextFieldDelegate {
         statusField.leftViewMode = .always
         statusField.delegate = self
         statusField.becomeFirstResponder()
+        statusField.clearButtonMode = .whileEditing
         statusField.placeholder = "new status"
         statusField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         addSubview(statusField)
