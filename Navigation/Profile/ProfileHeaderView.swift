@@ -9,71 +9,97 @@ import UIKit
 
 final class ProfileHeaderView: UIView, UITextFieldDelegate {
 
-    private let avatar = UIImageView()
-    let avatarTitle = UILabel()
-    let statusLabel = UILabel()
-    let statusField = UITextField()
-    let statusButton = UIButton()
+    // MARK: - variable declaration
 
-    let pagePadding = 16
-    let avatarSize = 120
-    var avatarWHFull: Int = 0
+    private lazy var avatarImageView = UIImageView()
+    private lazy var fullNameLabel = UILabel()
+    private lazy var statusLabel = UILabel()
+    private lazy var statusTextField = UITextField()
+    private lazy var setStatusButton = UIButton()
 
-    enum FontSize: Int {
-        case statusLabel = 14
-        case statusField = 15
-        case avatar = 18
-    }
-    let fontSize = FontSize.self
+    private lazy var pagePadding = CGFloat(16)
+    private lazy var avatarSize = CGFloat(220 - 3 * 16 - 50) // после получения 220 мы можем расчитать размер аватарки
 
-    private let textFieldRadius = 12
     private var statusText: String = ""
 
+
+    // MARK: - implementation
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        avatarWHFull = avatarSize + pagePadding * 2
+        avatarImageView.image = UIImage(named: "swan.jpg")
+        avatarImageView.clipsToBounds = true
+        avatarImageView.layer.cornerRadius = avatarSize / 2
+        avatarImageView.layer.borderWidth = 3
+        avatarImageView.layer.borderColor = UIColor.white.cgColor
+        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(avatarImageView)
+        NSLayoutConstraint.activate([
+            avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: pagePadding),
+            avatarImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: pagePadding),
+            avatarImageView.widthAnchor.constraint(equalToConstant: avatarSize),
+            avatarImageView.heightAnchor.constraint(equalToConstant: avatarSize)
+        ])
 
-        avatar.frame = CGRect(x: pagePadding, y: pagePadding, width: avatarSize, height: avatarSize)
-        avatar.image = UIImage(named: "swan.jpg")
-        avatar.layer.borderWidth = 3
-        avatar.layer.borderColor = UIColor.white.cgColor
-        avatar.layer.cornerRadius = avatar.frame.width / 2
-        avatar.clipsToBounds = true
-        addSubview(avatar)
+        fullNameLabel.text = "Лебедь"
+        fullNameLabel.font = .boldSystemFont(ofSize: 18)
+        fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(fullNameLabel)
+        NSLayoutConstraint.activate([
+            fullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: pagePadding),
+            fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: pagePadding),
+            fullNameLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -pagePadding)
+        ])
 
-        avatarTitle.font = .boldSystemFont(ofSize: CGFloat(fontSize.avatar.rawValue))
-        avatarTitle.text = "Лебедь"
-        addSubview(avatarTitle)
-
-        statusLabel.textColor = .gray                           // в задании серый по светлосерому. Как есть.
-        statusLabel.font = .systemFont(ofSize: CGFloat(fontSize.statusLabel.rawValue))
         statusLabel.text = "Прекрасный день!"
+        statusLabel.font = .systemFont(ofSize: 14)
+        statusLabel.textColor = .gray
+        statusLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(statusLabel)
+        NSLayoutConstraint.activate([
+            statusLabel.bottomAnchor.constraint(equalTo: avatarImageView.topAnchor, constant: avatarSize / 2),
+            statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: pagePadding),
+            statusLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -pagePadding)
+        ])
 
-        statusField.backgroundColor = .white
-        statusField.font = .systemFont(ofSize: CGFloat(fontSize.statusField.rawValue))
-        statusField.layer.cornerRadius = CGFloat(textFieldRadius)
-        statusField.layer.borderWidth = 1
-        statusField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: textFieldRadius, height: 0))
-        statusField.leftViewMode = .always
-        statusField.delegate = self
-        statusField.becomeFirstResponder()
-        statusField.clearButtonMode = .whileEditing
-        statusField.placeholder = "new status"
-        statusField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
-        addSubview(statusField)
+        addSubview(statusTextField)
+        statusTextField.placeholder = "new status"
+        statusTextField.font = .systemFont(ofSize: 15)
+        statusTextField.backgroundColor = .white
+        statusTextField.layer.cornerRadius = 12
+        statusTextField.layer.borderWidth = 1
+        statusTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
+        statusTextField.leftViewMode = .always
+        statusTextField.delegate = self
+        statusTextField.becomeFirstResponder()
+        statusTextField.clearButtonMode = .whileEditing
+        statusTextField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
+        statusTextField.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            statusTextField.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor),
+            statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: pagePadding),
+            statusTextField.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -pagePadding),
+            statusTextField.heightAnchor.constraint(equalToConstant: 40)
+        ])
 
-        statusButton.backgroundColor = .systemBlue
-        statusButton.layer.cornerRadius = 4
-        statusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
-        statusButton.layer.shadowRadius = 4
-        statusButton.layer.shadowColor = UIColor.black.cgColor
-        statusButton.layer.shadowOpacity = 0.7
-        statusButton.setTitle("Set status", for: .normal)
-        statusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        addSubview(statusButton)
+        addSubview(setStatusButton)
+        setStatusButton.setTitle("Set status", for: .normal)
+        setStatusButton.backgroundColor = .systemBlue
+        setStatusButton.layer.cornerRadius = 4
+        setStatusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
+        setStatusButton.layer.shadowRadius = 4
+        setStatusButton.layer.shadowColor = UIColor.black.cgColor
+        setStatusButton.layer.shadowOpacity = 0.7
+        setStatusButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: pagePadding),
+            setStatusButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: pagePadding),
+            setStatusButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -pagePadding),
+            setStatusButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        setStatusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+
     }
 
     // А куда этот инит лучше? В самый самый низ или сразу после основного?
@@ -81,8 +107,9 @@ final class ProfileHeaderView: UIView, UITextFieldDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // вместо принудительной очистки поставил "крестик" очистки
     @objc func buttonPressed() {
-        statusLabel.text = statusText       // вместо принудительной очистки поставил "крестик" очистки
+        statusLabel.text = statusText
     }
 
     // ввод по Enter. Было в лекции.
@@ -92,8 +119,7 @@ final class ProfileHeaderView: UIView, UITextFieldDelegate {
     }
 
     @objc func statusTextChanged() {
-        statusText = statusField.text ?? "not input new status yet"
+        statusText = statusTextField.text ?? "not input new status yet"
     }
-
 }
 

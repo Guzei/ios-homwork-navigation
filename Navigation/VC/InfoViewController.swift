@@ -24,15 +24,13 @@ final class InfoViewController: UIViewController {
 
     @objc func press() {
 
-
-
         let alert = UIAlertController(title: "Alert!",  message: "Clouse modal window?", preferredStyle: .alert)
-
 
         alert.addAction(UIAlertAction(title: "Yes", style: .default   ) { _ in
             print("Yes");
             self.dismiss(animated: true)
         })
+
         alert.addAction(UIAlertAction(title: "No", style: .destructive) { _ in
             NSLog("The \"No\" alert occured.")                                          
         })

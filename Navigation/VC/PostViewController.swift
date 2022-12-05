@@ -17,10 +17,7 @@ final class PostViewController: UIViewController {
         title = "Post"
         view.backgroundColor = .systemYellow
 
-
         title = post?.title
-
-
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style: .done, target: self, action: #selector(press))
     }
