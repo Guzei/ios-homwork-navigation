@@ -7,11 +7,6 @@
 
 import UIKit
 
-let colors = (UIColor.white, UIColor.black)
-
-
-
-
 struct Post {
 
     let title: String
