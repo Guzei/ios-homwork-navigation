@@ -63,7 +63,6 @@ final class ProfileHeaderView: UIView, UITextFieldDelegate {
             statusLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -pagePadding)
         ])
 
-        addSubview(statusTextField)
         statusTextField.placeholder = "new status"
         statusTextField.font = .systemFont(ofSize: 15)
         statusTextField.backgroundColor = .white
@@ -76,6 +75,7 @@ final class ProfileHeaderView: UIView, UITextFieldDelegate {
         statusTextField.clearButtonMode = .whileEditing
         statusTextField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         statusTextField.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(statusTextField)
         NSLayoutConstraint.activate([
             statusTextField.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor),
             statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: pagePadding),
@@ -83,7 +83,6 @@ final class ProfileHeaderView: UIView, UITextFieldDelegate {
             statusTextField.heightAnchor.constraint(equalToConstant: 40)
         ])
 
-        addSubview(setStatusButton)
         setStatusButton.setTitle("Set status", for: .normal)
         setStatusButton.backgroundColor = .systemBlue
         setStatusButton.layer.cornerRadius = 4
@@ -92,6 +91,7 @@ final class ProfileHeaderView: UIView, UITextFieldDelegate {
         setStatusButton.layer.shadowColor = UIColor.black.cgColor
         setStatusButton.layer.shadowOpacity = 0.7
         setStatusButton.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(setStatusButton)
         NSLayoutConstraint.activate([
             setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: pagePadding),
             setStatusButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: pagePadding),
@@ -102,7 +102,6 @@ final class ProfileHeaderView: UIView, UITextFieldDelegate {
 
     }
 
-    // А куда этот инит лучше? В самый самый низ или сразу после основного?
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -120,6 +119,10 @@ final class ProfileHeaderView: UIView, UITextFieldDelegate {
 
     @objc func statusTextChanged() {
         statusText = statusTextField.text ?? "not input new status yet"
+    }
+
+    func changeTitle(text: String) {
+        fullNameLabel.text = text
     }
 }
 
