@@ -14,24 +14,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
 
-        let tabBarController = UITabBarController()
-        tabBarController.tabBar.backgroundColor = .systemGray6
-
-        let vcFeed = FeedViewController()
-        let vcProfile = ProfileViewController()
-
-        let ncFeed = UINavigationController(rootViewController: vcFeed)
-        let ncProfile = UINavigationController(rootViewController: vcProfile)
-
-        tabBarController.viewControllers = [ncFeed, ncProfile]
-        tabBarController.selectedIndex = 1
-
-        ncFeed.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "doc.plaintext"), tag: 0) // title в связанном VC перекрывает
-        ncProfile.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.text.rectangle"), tag: 0) // зачем tag пока непонятно
-
         let window = UIWindow(windowScene: scene)
-        window.rootViewController = tabBarController
+        window.rootViewController = TabBarController()
         window.makeKeyAndVisible()
+        
         self.window = window
     }
 }
