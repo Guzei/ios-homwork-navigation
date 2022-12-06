@@ -9,51 +9,62 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
 
-    let hvProfile = ProfileHeaderView()
+    private lazy var profileHeaderView: ProfileHeaderView = {
+        let view = ProfileHeaderView()
+        view.frame = view.safeAreaLayoutGuide.layoutFrame
+        view.backgroundColor = .systemGray3
+        view.translatesAutoresizingMaskIntoConstraints = false
+
+        return view
+    }()
+
+    private lazy var setTitleButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Set Title", for: .normal)
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 4
+        button.layer.shadowOffset = CGSize(width: 4, height: 4)
+        button.layer.shadowRadius = 4
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.7
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+
+        return button
+    }()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemGray6
         title = "Profile"
+        view.backgroundColor = .systemGray5
 
-        view.addSubview(hvProfile)
+        addSubviews()
+        setConstraints()
     }
 
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        hvProfile.frame = view.safeAreaLayoutGuide.layoutFrame
-        hvProfile.backgroundColor = .systemGray3
+    @objc func buttonPressed() {
+        title = "New title"
+        profileHeaderView.changeTitle(text: "New label")
+    }
 
-        let statusFieldHeight = 40
+    private func addSubviews() {
+        view.addSubview(profileHeaderView)
+        view.addSubview(setTitleButton)
+    }
 
-        // персчёт размеров при повороте экрана
-        let textWidth = Int(hvProfile.frame.width) - hvProfile.avatarWHFull - hvProfile.pagePadding
-        let buttonWidth = Int(hvProfile.frame.width) - hvProfile.pagePadding * 2
+    private func setConstraints() {
+        NSLayoutConstraint.activate([
+            profileHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            profileHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            profileHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            profileHeaderView.heightAnchor.constraint(equalToConstant: 220),
 
-        hvProfile.avatarTitle.frame = CGRect(x: hvProfile.avatarWHFull,
-                                             y: 27,
-                                             width: textWidth,
-                                             height: hvProfile.fontSize.avatar.rawValue
-        )
-
-        hvProfile.statusLabel.frame = CGRect(x: hvProfile.avatarWHFull,
-                                             y: hvProfile.avatarWHFull - 34 - hvProfile.fontSize.statusLabel.rawValue,
-                                             width: textWidth,
-                                             height: hvProfile.fontSize.statusLabel.rawValue
-        )
-
-        hvProfile.statusField.frame = CGRect(x: hvProfile.avatarWHFull,
-                                             y: Int(hvProfile.statusLabel.frame.maxY) + hvProfile.pagePadding, // отступ от предыдущего
-                                             width: textWidth,
-                                             height: statusFieldHeight
-        )
-
-        hvProfile.statusButton.frame = CGRect(x: hvProfile.pagePadding,
-                                              y: Int(hvProfile.statusField.frame.maxY) + hvProfile.pagePadding,
-                                              width: buttonWidth,
-                                              height: 50
-        )
+            setTitleButton.leadingAnchor.constraint(equalTo: profileHeaderView.leadingAnchor, constant: 0),
+            setTitleButton.trailingAnchor.constraint(equalTo: profileHeaderView.trailingAnchor, constant: -4), // прижато с учётом тени
+            setTitleButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16), // привязка к Safe Area
+            setTitleButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
 }
