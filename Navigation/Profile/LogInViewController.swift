@@ -1,0 +1,213 @@
+//
+//  LogInViewController.swift
+//  Navigation
+//
+//  Created by Igor Guzei on 07.12.2022.
+//
+
+
+import UIKit
+
+final class LogInViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationController?.navigationBar.isHidden = true
+        view.backgroundColor = .systemYellow
+        addSubviews()
+        setConstraints()
+        setupTapGesture()
+    }
+
+    private func addSubviews() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(logoVK)
+        contentView.addSubview(button)
+        contentView.addSubview(loginForm)
+        loginForm.addArrangedSubview(loginField)
+        loginForm.addArrangedSubview(passwordField)
+    }
+
+    // Это оболочка того, что будет скролится. Границы скроллинга.
+    private lazy var scrollView: UIScrollView = {
+        let v = UIScrollView()
+        v.backgroundColor = .systemRed
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+
+    // окно, содержимое которого будет ездить внутри оболочки. В него пихаем контент, который должен скроллиться.
+    private lazy var contentView: UIView = {
+        let v = UIView()
+        v.backgroundColor = .systemGreen
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+
+    private lazy var logoVK: UIImageView = {
+        let v = UIImageView()
+        v.image = UIImage(named: "logoVK")
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+
+    let loginForm: UIStackView = {
+        let v = UIStackView()
+        v.backgroundColor = .systemGray6
+        v.axis = .vertical
+        v.distribution = .fillEqually
+        v.alignment = .fill
+        v.layer.cornerRadius = 10
+        v.layer.borderColor = UIColor.lightGray.cgColor
+        v.layer.borderWidth = 0.5
+        v.clipsToBounds = true
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+
+    private lazy var loginField: UITextField = {
+        let v = UITextField()
+        v.placeholder = "Email or phone"
+        v.leftView = UIView(frame: CGRect(x: 0, y: 0, width: pagePadding, height: 0))
+        v.leftViewMode = .always
+        v.layer.borderColor = UIColor.lightGray.cgColor
+        v.layer.borderWidth = 0.5
+        v.backgroundColor = .systemGray6
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+
+    private lazy var passwordField: UITextField = {
+        let v = UITextField()
+        v.placeholder = "Password"
+        v.leftView = UIView(frame: CGRect(x: 0, y: 0, width: pagePadding, height: 0))
+        v.leftViewMode = .always
+        v.isSecureTextEntry = true
+        v.autocapitalizationType = .none
+        v.backgroundColor = .systemGray6
+        v.textColor = .black
+        v.font = .systemFont(ofSize: 16)
+        v.tintColor = UIColor(named: "colorVK")
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+
+    private lazy var button: UIButton = {
+        let v = UIButton()
+        v.setTitle("Login", for: .normal)
+        if let img = UIImage(named: "pixelVK") {   // надо ли проверять наличие изображений? Или это уже перебор?
+            v.setBackgroundImage(img, for: .normal)
+        } else {
+            v.backgroundColor = UIColor.init(named: "colorVK")
+        }
+        v.layer.cornerRadius = 10
+        v.clipsToBounds = true
+        v.alpha = (v.isSelected || v.isHighlighted ) ? 0.8 : 1.0
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.addTarget(self, action: #selector(pressButton), for: .touchUpInside)
+        return v
+    }()
+
+
+    private func setConstraints() {
+        let safeAreaGuide = view.safeAreaLayoutGuide
+
+
+        NSLayoutConstraint.activate([
+
+            scrollView.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor),
+
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+
+            logoVK.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120),
+            logoVK.widthAnchor.constraint(equalToConstant: logoVKsize.w),
+            logoVK.heightAnchor.constraint(equalToConstant: logoVKsize.h),
+            logoVK.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+
+            loginForm.topAnchor.constraint(equalTo: logoVK.bottomAnchor, constant: 120),
+            loginForm.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: pagePadding),
+            loginForm.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -pagePadding),
+
+            loginField.topAnchor.constraint(equalTo: loginForm.topAnchor),
+            loginField.leadingAnchor.constraint(equalTo: loginForm.leadingAnchor),
+            loginForm.trailingAnchor.constraint(equalTo: loginForm.trailingAnchor),
+            loginField.heightAnchor.constraint(equalToConstant: 50),
+
+            passwordField.topAnchor.constraint(equalTo: loginField.bottomAnchor),
+            passwordField.leadingAnchor.constraint(equalTo: loginForm.leadingAnchor),
+            passwordField.trailingAnchor.constraint(equalTo: loginForm.trailingAnchor),
+            passwordField.heightAnchor.constraint(equalToConstant: 50),
+
+            button.topAnchor.constraint(equalTo: loginForm.bottomAnchor, constant: pagePadding),
+            button.leadingAnchor.constraint(equalTo: loginForm.leadingAnchor),
+            button.trailingAnchor.constraint(equalTo: loginForm.trailingAnchor),
+            button.heightAnchor.constraint(equalToConstant: 50),
+
+            button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+        ])
+    }
+    @objc func pressButton() {
+
+        let vcProfile = ProfileViewController()
+        navigationController?.pushViewController(vcProfile, animated: true)
+    }
+
+
+// ~~~~~~~~~~~~~~~~~
+
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("viewWillAppear")
+        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc private func showKeyboard(notification: NSNotification) {
+        print("keyboardShow")
+        guard let userInfo = notification.userInfo else { return }
+        let keyboardFrame:CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        print("keyboardFrame:", keyboardFrame)
+//        keyboardFrame = self.view.convert(keyboardFrame, from: nil)  // ковертер при nil непонятно что делает. Лишний?
+//        print(keyboardFrame)
+        print("scrollView:", scrollView)
+        print("scrollView.contentInset:", scrollView.contentInset)
+        var contentInset:UIEdgeInsets = scrollView.contentInset
+        print("contentInset:", contentInset)
+        print("contentInset.bottom:", contentInset.bottom)
+        contentInset.bottom = keyboardFrame.size.height + 32
+        scrollView.contentInset = contentInset
+        print("contentInset.bottom:", contentInset.bottom)
+    }
+
+    @objc fileprivate func hideKeyboard(_ notification: NSNotification) {
+        print("keyboardHide")
+        scrollView.contentInset = .zero
+    }
+
+    fileprivate func setupTapGesture() {
+        print("setupTapGesture")
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapNear)))
+    }
+
+    @objc fileprivate func tapNear() {
+        view.endEditing(true)
+        view.layoutIfNeeded()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("viewDidDisappear")
+        NotificationCenter.default.removeObserver(self)
+    }
+}
+
+

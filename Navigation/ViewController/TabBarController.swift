@@ -11,14 +11,17 @@ final class TabBarController: UITabBarController {
 
     let vcFeed = FeedViewController()
     let vcProfile = ProfileViewController()
+    let vcLogin = LogInViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tabBar.backgroundColor = .systemBackground
+
         let ncFeed: UINavigationController = {
             let feed = UINavigationController()
             feed.setViewControllers([vcFeed], animated: true)
-            feed.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "doc.plaintext"), tag: 0)
+            feed.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "list.bullet"), tag: 0)
             return feed
         }()
 
@@ -29,8 +32,15 @@ final class TabBarController: UITabBarController {
             return feed
         }()
 
-        viewControllers = [ncFeed, ncProfile]
-        selectedIndex = 1
+        let ncLogin: UINavigationController = {
+            let feed = UINavigationController()
+            feed.setViewControllers([vcLogin], animated: true)
+            feed.tabBarItem = UITabBarItem(title: "Login", image: UIImage(systemName: "person"), tag: 0)
+            return feed
+        }()
+
+        viewControllers = [ncFeed, ncProfile, ncLogin]
+        selectedIndex = 2
     }
 }
 
