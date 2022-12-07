@@ -13,7 +13,7 @@ final class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
-        view.backgroundColor = .systemYellow
+        view.backgroundColor = .white
         addSubviews()
         setConstraints()
         setupTapGesture()
@@ -29,10 +29,10 @@ final class LogInViewController: UIViewController {
         loginForm.addArrangedSubview(passwordField)
     }
 
-    // Это оболочка того, что будет скролится. Границы скроллинга.
+    // Это оболочка того, что будет скроллиться. Границы скроллинга.
     private lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
-        v.backgroundColor = .systemRed
+        v.backgroundColor = .white
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
@@ -40,7 +40,7 @@ final class LogInViewController: UIViewController {
     // окно, содержимое которого будет ездить внутри оболочки. В него пихаем контент, который должен скроллиться.
     private lazy var contentView: UIView = {
         let v = UIView()
-        v.backgroundColor = .systemGreen
+        v.backgroundColor = .white
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
@@ -160,41 +160,25 @@ final class LogInViewController: UIViewController {
         navigationController?.pushViewController(vcProfile, animated: true)
     }
 
-
-// ~~~~~~~~~~~~~~~~~
-
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("viewWillAppear")
         NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     @objc private func showKeyboard(notification: NSNotification) {
-        print("keyboardShow")
         guard let userInfo = notification.userInfo else { return }
         let keyboardFrame:CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
-        print("keyboardFrame:", keyboardFrame)
-//        keyboardFrame = self.view.convert(keyboardFrame, from: nil)  // ковертер при nil непонятно что делает. Лишний?
-//        print(keyboardFrame)
-        print("scrollView:", scrollView)
-        print("scrollView.contentInset:", scrollView.contentInset)
         var contentInset:UIEdgeInsets = scrollView.contentInset
-        print("contentInset:", contentInset)
-        print("contentInset.bottom:", contentInset.bottom)
-        contentInset.bottom = keyboardFrame.size.height + 32
+        contentInset.bottom = keyboardFrame.size.height + 2 * pagePadding
         scrollView.contentInset = contentInset
-        print("contentInset.bottom:", contentInset.bottom)
     }
 
     @objc fileprivate func hideKeyboard(_ notification: NSNotification) {
-        print("keyboardHide")
         scrollView.contentInset = .zero
     }
 
     fileprivate func setupTapGesture() {
-        print("setupTapGesture")
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapNear)))
     }
 
@@ -205,9 +189,6 @@ final class LogInViewController: UIViewController {
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        print("viewDidDisappear")
         NotificationCenter.default.removeObserver(self)
     }
 }
-
-
