@@ -11,7 +11,6 @@ final class ProfileHeaderView: UIView, UITextFieldDelegate {
 
     // MARK: - variable declaration
 
-    private lazy var pagePadding = CGFloat(16)
     private lazy var avatarSize = CGFloat(220 - 3 * 16 - 50)    // после получения 220 мы можем расчитать размер аватарки
 
     private lazy var avatarImageView: UIImageView = {
@@ -55,7 +54,7 @@ final class ProfileHeaderView: UIView, UITextFieldDelegate {
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
         field.leftViewMode = .always
         field.delegate = self
-        field.becomeFirstResponder()
+//        field.becomeFirstResponder()
         field.clearButtonMode = .whileEditing
         field.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         field.translatesAutoresizingMaskIntoConstraints = false
