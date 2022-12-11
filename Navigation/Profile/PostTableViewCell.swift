@@ -76,8 +76,6 @@ class PostTableViewCell: UITableViewCell {
     private func setConstraints() {
         NSLayoutConstraint.activate([
 
-//            contentView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
-
             cellAuthor.topAnchor.constraint(equalTo: contentView.topAnchor, constant: pagePadding),
             cellAuthor.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: pagePadding),
             cellAuthor.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -pagePadding),

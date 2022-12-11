@@ -54,7 +54,6 @@ final class ProfileHeaderView: UIView, UITextFieldDelegate {
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
         field.leftViewMode = .always
         field.delegate = self
-//        field.becomeFirstResponder()
         field.clearButtonMode = .whileEditing
         field.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         field.translatesAutoresizingMaskIntoConstraints = false
