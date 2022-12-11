@@ -11,7 +11,7 @@ final class ProfileHeaderView: UIView, UITextFieldDelegate {
 
     // MARK: - variable declaration
 
-    private lazy var avatarSize = CGFloat(220 - 3 * 16 - 50)    // после получения 220 мы можем расчитать размер аватарки
+    private lazy var avatarSize = CGFloat(headerHeight - 3 * pagePadding - 50.0)  
 
     private lazy var avatarImageView: UIImageView = {
         let img = UIImageView()
@@ -146,4 +146,3 @@ final class ProfileHeaderView: UIView, UITextFieldDelegate {
         fullNameLabel.text = text
     }
 }
-

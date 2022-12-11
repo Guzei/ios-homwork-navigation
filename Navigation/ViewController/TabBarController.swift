@@ -32,7 +32,7 @@ final class TabBarController: UITabBarController {
         }()
 
         viewControllers = [ncFeed, ncProfile]
-        selectedIndex = 0
+        selectedIndex = 1
     }
 }
 

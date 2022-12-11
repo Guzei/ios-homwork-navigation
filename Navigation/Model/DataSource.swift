@@ -11,4 +11,29 @@ let colors = (UIColor.white, UIColor.black)
 
 let pagePadding = 16.0
 
+let headerHeight = 220.0
+
 let logoVKsize = (w: 100.0, h: 100.0)
+
+var posts: [Post] = [
+    Post(author: "Me",
+         image: "me",
+         description: "My fiest post My fiest post My fiest post My fiest post My fiest post My fiest post My fiest post My fiest post My fiest post",
+         likes: 1,
+         views: 1),
+    Post(author: "You",
+         image: "you",
+         description: "that's funny that's funny that's funny that's funny that's funny that's funny that's funny that's funny that's funny",
+         likes: 2,
+         views: 2),
+    Post(author: "We",
+         image: "hw3",
+         description: "We want post We want post We want post We want post We want post We want post We want post We want post We want post",
+         likes: 22,
+         views: 33),
+    Post(author: "Guest",
+         image: "guest",
+         description: "guest Gena guest Gena guest Gena guest Gena guest Gena guest Gena guest Gena guest Gena guest Gena guest Gena guest Gena guest Gena",
+         likes: 0,
+         views: 0),
+]
