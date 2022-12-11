@@ -10,8 +10,7 @@
 
 import UIKit
 
-//final
-class PostTableViewCell: UITableViewCell {
+final class PostTableViewCell: UITableViewCell {
 
     private lazy var cellAuthor: UILabel = {
         let label = UILabel()

@@ -36,6 +36,13 @@ https://stackoverflow.com/questions/26689232/scrollview-and-keyboard-in-swift
 help.apple: Эмуляция пальцев в эмуляторе телефона
 https://help.apple.com/simulator/mac/current/#/deva6cdf367f
 
+<h3>Попутно</h3>
+Несколько примеров простейших таблиц.
+- С устарвешим стандартным видом .textLabel!.text =
+- С новым стандартным видом .defaultContentConfiguration()
+- С индивидуальным внешним видом
+https://github.com/Guzei/swift-tableView
+
     // Returns a reusable table-view cell object for the specified reuse identifier and adds it to the table.
     // Возвращает многократно используемый объект ячейки табличного представления для указанного идентификатора повторного использования и добавляет его в таблицу.
 

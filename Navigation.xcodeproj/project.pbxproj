@@ -76,6 +76,7 @@
 			children = (
 				4E37BC672935012E0034A316 /* AppDelegate.swift */,
 				4E37BC692935012E0034A316 /* SceneDelegate.swift */,
+				4EE5C618293FA1D400D901A5 /* TabBarController.swift */,
 				4EF21348293688DF00CE1CD3 /* ViewController */,
 				4E3DF59A2938C6F80023B7D9 /* Profile */,
 				4ED17BFD293E59EA00CAB8D7 /* Model */,
@@ -112,7 +113,6 @@
 				4E37BC6B2935012E0034A316 /* FeedViewController.swift */,
 				4EF213492936890B00CE1CD3 /* PostViewController.swift */,
 				4EF2134B2936894C00CE1CD3 /* InfoViewController.swift */,
-				4EE5C618293FA1D400D901A5 /* TabBarController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";

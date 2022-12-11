@@ -9,14 +9,14 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
 
-    let postIdent = "post"
+    let postIdentifier = "post"
 
     // О! Оказывается с $0 можно использовать при объявлении переменных. Очень наглядно получается.
     private lazy var tableView: UITableView = {
         $0.backgroundColor = .systemGray5
         $0.dataSource = self
         $0.delegate = self
-        $0.register(PostTableViewCell.self, forCellReuseIdentifier: postIdent)
+        $0.register(PostTableViewCell.self, forCellReuseIdentifier: postIdentifier)
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UITableView(frame: .zero, style: .grouped))
@@ -41,7 +41,7 @@ extension ProfileViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: postIdent, for: indexPath) as? PostTableViewCell else { fatalError() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: postIdentifier, for: indexPath) as? PostTableViewCell else { fatalError() }
         cell.config(post: posts[indexPath.row])
         return cell
     }
