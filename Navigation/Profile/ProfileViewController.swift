@@ -11,7 +11,6 @@ final class ProfileViewController: UIViewController {
 
     let postIdentifier = "post"
 
-    // О! Оказывается с $0 можно использовать при объявлении переменных. Очень наглядно получается.
     private lazy var tableView: UITableView = {
         $0.backgroundColor = .systemGray5
         $0.dataSource = self
@@ -48,10 +47,6 @@ extension ProfileViewController: UITableViewDataSource {
 }
 
 extension ProfileViewController: UITableViewDelegate {
-
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        headerHeight
-    }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         ProfileHeaderView()

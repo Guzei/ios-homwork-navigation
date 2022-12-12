@@ -13,46 +13,41 @@ import UIKit
 final class PostTableViewCell: UITableViewCell {
 
     private lazy var cellAuthor: UILabel = {
-        let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 20)
-        label.textColor = .black
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+        $0.font = .boldSystemFont(ofSize: 20)
+        $0.textColor = .black
+        $0.numberOfLines = 2
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UILabel())
 
     private lazy var cellImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = .black
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
+        $0.backgroundColor = .black
+        $0.contentMode = .scaleAspectFit
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIImageView())
 
     private lazy var cellDescription: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
-        label.textColor = .systemGray
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+        $0.font = .systemFont(ofSize: 14)
+        $0.textColor = .systemGray
+        $0.numberOfLines = 0
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UILabel())
     
     private lazy var cellLikes: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+        $0.font = .systemFont(ofSize: 16)
+        $0.textColor = .black
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UILabel())
 
     private lazy var cellViews: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+        $0.font = .systemFont(ofSize: 16)
+        $0.textColor = .black
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UILabel())
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

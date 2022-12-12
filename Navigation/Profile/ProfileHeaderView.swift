@@ -7,74 +7,64 @@
 
 import UIKit
 
-final class ProfileHeaderView: UIView, UITextFieldDelegate {
+final class ProfileHeaderView: UIView {
 
     // MARK: - variable declaration
 
     private lazy var avatarSize = CGFloat(headerHeight - 3 * pagePadding - 50.0)  
 
     private lazy var avatarImageView: UIImageView = {
-        let img = UIImageView()
-        img.image = UIImage(named: "swan")
-        img.clipsToBounds = true
-        img.layer.cornerRadius = avatarSize / 2
-        img.layer.borderWidth = 3
-        img.layer.borderColor = UIColor.white.cgColor
-        img.translatesAutoresizingMaskIntoConstraints = false
-
-        return img
-    }()
+        $0.image = UIImage(named: "swan")
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = avatarSize / 2
+        $0.layer.borderWidth = 3
+        $0.layer.borderColor = UIColor.white.cgColor
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIImageView())
 
     private lazy var fullNameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Лебедь"
-        label.font = .boldSystemFont(ofSize: 18)
-        label.translatesAutoresizingMaskIntoConstraints = false
-
-        return label
-    }()
+        $0.text = "Лебедь"
+        $0.font = .boldSystemFont(ofSize: 18)
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UILabel())
 
     private lazy var statusLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Прекрасный день!"
-        label.font = .systemFont(ofSize: 14)
-        label.textColor = .gray
-        label.translatesAutoresizingMaskIntoConstraints = false
-
-        return label
-    }()
+        $0.text = "Прекрасный день!"
+        $0.font = .systemFont(ofSize: 14)
+        $0.textColor = .gray
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UILabel())
 
     private lazy var statusTextField: UITextField = {
-        let field = UITextField()
-        field.placeholder = "new status"
-        field.font = .systemFont(ofSize: 15)
-        field.backgroundColor = .white
-        field.layer.cornerRadius = 12
-        field.layer.borderWidth = 1
-        field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
-        field.leftViewMode = .always
-        field.delegate = self
-        field.clearButtonMode = .whileEditing
-        field.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
-        field.translatesAutoresizingMaskIntoConstraints = false
-
-        return field
-    }()
+        $0.placeholder = "new status"
+        $0.font = .systemFont(ofSize: 15)
+        $0.backgroundColor = .white
+        $0.layer.cornerRadius = 12
+        $0.layer.borderWidth = 1
+        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
+        $0.leftViewMode = .always
+        $0.delegate = self
+        $0.clearButtonMode = .whileEditing
+        $0.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UITextField())
 
     private lazy var setStatusButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Set status", for: .normal)
-        button.backgroundColor = .systemBlue
-        button.layer.cornerRadius = 4
-        button.layer.shadowOffset = CGSize(width: 4, height: 4)
-        button.layer.shadowRadius = 4
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOpacity = 0.7
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-
-        return button
-    }()
+        $0.setTitle("Set status", for: .normal)
+        $0.backgroundColor = .systemBlue
+        $0.layer.cornerRadius = 4
+        $0.layer.shadowOffset = CGSize(width: 4, height: 4)
+        $0.layer.shadowRadius = 4
+        $0.layer.shadowColor = UIColor.black.cgColor
+        $0.layer.shadowOpacity = 0.7
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        return $0
+    }(UIButton())
 
     private lazy var statusText: String = ""
 
@@ -101,28 +91,29 @@ final class ProfileHeaderView: UIView, UITextFieldDelegate {
     private func setConstraints() {
         NSLayoutConstraint.activate([
 
-            avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: pagePadding),
-            avatarImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: pagePadding),
+            avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: pagePadding),
+            avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: pagePadding),
             avatarImageView.widthAnchor.constraint(equalToConstant: avatarSize),
             avatarImageView.heightAnchor.constraint(equalToConstant: avatarSize),
 
-            fullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: pagePadding),
+            fullNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: pagePadding),
             fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: pagePadding),
-            fullNameLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -pagePadding),
+            fullNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -pagePadding),
 
             statusLabel.bottomAnchor.constraint(equalTo: avatarImageView.topAnchor, constant: avatarSize / 2),
             statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: pagePadding),
-            statusLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -pagePadding),
+            statusLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -pagePadding),
 
+            statusTextField.heightAnchor.constraint(equalToConstant: 40),
             statusTextField.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor),
             statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: pagePadding),
-            statusTextField.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -pagePadding),
-            statusTextField.heightAnchor.constraint(equalToConstant: 40),
+            statusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -pagePadding),
 
+            setStatusButton.heightAnchor.constraint(equalToConstant: 50),
             setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: pagePadding),
-            setStatusButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: pagePadding),
-            setStatusButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -pagePadding),
-            setStatusButton.heightAnchor.constraint(equalToConstant: 50)
+            setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: pagePadding),
+            setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -pagePadding),
+            setStatusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -pagePadding),
         ])
     }
 
@@ -131,17 +122,20 @@ final class ProfileHeaderView: UIView, UITextFieldDelegate {
         statusLabel.text = statusText
     }
 
-    // ввод по Enter. Было в лекции.
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        statusLabel.text = statusText
-        return false
-    }
-
     @objc func statusTextChanged() {
         statusText = statusTextField.text ?? "not input new status yet"
     }
 
     func changeTitle(text: String) {
         fullNameLabel.text = text
+    }
+}
+
+extension ProfileHeaderView: UITextFieldDelegate {
+
+    // ввод по Enter. Было в лекции.
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        statusLabel.text = statusText
+        return false
     }
 }
