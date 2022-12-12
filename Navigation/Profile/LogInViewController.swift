@@ -10,6 +10,90 @@ import UIKit
 
 final class LogInViewController: UIViewController {
 
+// MARK: - properties
+
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = .white
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+
+    private lazy var contentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    private lazy var logoVK: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "logoVK")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+
+    private lazy var loginForm: UIStackView = {
+        let stackView = UIStackView()
+        stackView.backgroundColor = .systemGray6
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.layer.cornerRadius = 10
+        stackView.layer.borderColor = UIColor.lightGray.cgColor
+        stackView.layer.borderWidth = 0.5
+        stackView.clipsToBounds = true
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+
+    private lazy var loginField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Email or phone"
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: pagePadding, height: 0))
+        textField.leftViewMode = .always
+        textField.layer.borderColor = UIColor.lightGray.cgColor
+        textField.layer.borderWidth = 0.5
+        textField.backgroundColor = .systemGray6
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+
+    private lazy var passwordField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Password"
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: pagePadding, height: 0))
+        textField.leftViewMode = .always
+        textField.isSecureTextEntry = true
+        textField.autocapitalizationType = .none
+        textField.backgroundColor = .systemGray6
+        textField.textColor = .black
+        textField.font = .systemFont(ofSize: 16)
+        textField.tintColor = UIColor(named: "colorVK")
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+
+    private lazy var button: UIButton = {
+        let button = UIButton()
+        button.setTitle("Login", for: .normal)
+        if let img = UIImage(named: "pixelVK") {
+            button.setBackgroundImage(img, for: .normal)
+        } else if let color = UIColor.init(named: "colorVK") {
+            button.backgroundColor = color
+        } else {
+            button.backgroundColor = .systemBlue
+        }
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
+        button.alpha = (button.isSelected || button.isHighlighted ) ? 0.8 : 1.0
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(pressButton), for: .touchUpInside)
+        return button
+    }()
+
+// MARK: - inits
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
@@ -29,91 +113,8 @@ final class LogInViewController: UIViewController {
         loginForm.addArrangedSubview(passwordField)
     }
 
-    // Это оболочка того, что будет скроллиться. Границы скроллинга.
-    private lazy var scrollView: UIScrollView = {
-        let v = UIScrollView()
-        v.backgroundColor = .white
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
-
-    // окно, содержимое которого будет ездить внутри оболочки. В него пихаем контент, который должен скроллиться.
-    private lazy var contentView: UIView = {
-        let v = UIView()
-        v.backgroundColor = .white
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
-
-    private lazy var logoVK: UIImageView = {
-        let v = UIImageView()
-        v.image = UIImage(named: "logoVK")
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
-
-    let loginForm: UIStackView = {
-        let v = UIStackView()
-        v.backgroundColor = .systemGray6
-        v.axis = .vertical
-        v.distribution = .fillEqually
-        v.alignment = .fill
-        v.layer.cornerRadius = 10
-        v.layer.borderColor = UIColor.lightGray.cgColor
-        v.layer.borderWidth = 0.5
-        v.clipsToBounds = true
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
-
-    private lazy var loginField: UITextField = {
-        let v = UITextField()
-        v.placeholder = "Email or phone"
-        v.leftView = UIView(frame: CGRect(x: 0, y: 0, width: pagePadding, height: 0))
-        v.leftViewMode = .always
-        v.layer.borderColor = UIColor.lightGray.cgColor
-        v.layer.borderWidth = 0.5
-        v.backgroundColor = .systemGray6
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
-
-    private lazy var passwordField: UITextField = {
-        let v = UITextField()
-        v.placeholder = "Password"
-        v.leftView = UIView(frame: CGRect(x: 0, y: 0, width: pagePadding, height: 0))
-        v.leftViewMode = .always
-        v.isSecureTextEntry = true
-        v.autocapitalizationType = .none
-        v.backgroundColor = .systemGray6
-        v.textColor = .black
-        v.font = .systemFont(ofSize: 16)
-        v.tintColor = UIColor(named: "colorVK")
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
-
-    private lazy var button: UIButton = {
-        let v = UIButton()
-        v.setTitle("Login", for: .normal)
-        if let img = UIImage(named: "pixelVK") {   // надо ли проверять наличие изображений? Или это уже перебор?
-            v.setBackgroundImage(img, for: .normal)
-        } else {
-            v.backgroundColor = UIColor.init(named: "colorVK")
-        }
-        v.layer.cornerRadius = 10
-        v.clipsToBounds = true
-        v.alpha = (v.isSelected || v.isHighlighted ) ? 0.8 : 1.0
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.addTarget(self, action: #selector(pressButton), for: .touchUpInside)
-        return v
-    }()
-
-
     private func setConstraints() {
         let safeAreaGuide = view.safeAreaLayoutGuide
-
-
         NSLayoutConstraint.activate([
 
             scrollView.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor),
@@ -154,8 +155,10 @@ final class LogInViewController: UIViewController {
             button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
-    @objc func pressButton() {
 
+    // MARK: - methods
+
+    @objc func pressButton() {
         let vcProfile = ProfileViewController()
         navigationController?.pushViewController(vcProfile, animated: true)
     }

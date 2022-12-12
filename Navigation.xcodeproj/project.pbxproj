@@ -16,6 +16,7 @@
 		4ED17BFF293E5A9700CAB8D7 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED17BFE293E5A9700CAB8D7 /* DataSource.swift */; };
 		4EE5C619293FA1D400D901A5 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE5C618293FA1D400D901A5 /* TabBarController.swift */; };
 		4EE5C61B293FA49200D901A5 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE5C61A293FA49200D901A5 /* LogInViewController.swift */; };
+		4EE5C62029424E4200D901A5 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE5C61F29424E4200D901A5 /* PostTableViewCell.swift */; };
 		4EF2134A2936890B00CE1CD3 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF213492936890B00CE1CD3 /* PostViewController.swift */; };
 		4EF2134C2936894C00CE1CD3 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2134B2936894C00CE1CD3 /* InfoViewController.swift */; };
 		4EF2134E2936897600CE1CD3 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2134D2936897600CE1CD3 /* ProfileViewController.swift */; };
@@ -35,6 +36,7 @@
 		4EE5C618293FA1D400D901A5 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		4EE5C61A293FA49200D901A5 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		4EE5C61C2940742B00D901A5 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		4EE5C61F29424E4200D901A5 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		4EF213492936890B00CE1CD3 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		4EF2134B2936894C00CE1CD3 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		4EF2134D2936897600CE1CD3 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -74,13 +76,13 @@
 			children = (
 				4E37BC672935012E0034A316 /* AppDelegate.swift */,
 				4E37BC692935012E0034A316 /* SceneDelegate.swift */,
+				4EE5C618293FA1D400D901A5 /* TabBarController.swift */,
 				4EF21348293688DF00CE1CD3 /* ViewController */,
 				4E3DF59A2938C6F80023B7D9 /* Profile */,
 				4ED17BFD293E59EA00CAB8D7 /* Model */,
 				4E37BC702935012F0034A316 /* Assets.xcassets */,
 				4E37BC722935012F0034A316 /* LaunchScreen.storyboard */,
 				4E37BC752935012F0034A316 /* Info.plist */,
-				4EF2134F293689EC00CE1CD3 /* Post.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -88,9 +90,10 @@
 		4E3DF59A2938C6F80023B7D9 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				4EF2134D2936897600CE1CD3 /* ProfileViewController.swift */,
-				4E3DF59B2938C71D0023B7D9 /* ProfileHeaderView.swift */,
 				4EE5C61A293FA49200D901A5 /* LogInViewController.swift */,
+				4E3DF59B2938C71D0023B7D9 /* ProfileHeaderView.swift */,
+				4EE5C61F29424E4200D901A5 /* PostTableViewCell.swift */,
+				4EF2134D2936897600CE1CD3 /* ProfileViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -98,6 +101,7 @@
 		4ED17BFD293E59EA00CAB8D7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4EF2134F293689EC00CE1CD3 /* Post.swift */,
 				4ED17BFE293E5A9700CAB8D7 /* DataSource.swift */,
 			);
 			path = Model;
@@ -109,7 +113,6 @@
 				4E37BC6B2935012E0034A316 /* FeedViewController.swift */,
 				4EF213492936890B00CE1CD3 /* PostViewController.swift */,
 				4EF2134B2936894C00CE1CD3 /* InfoViewController.swift */,
-				4EE5C618293FA1D400D901A5 /* TabBarController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -195,6 +198,7 @@
 				4EF21350293689EC00CE1CD3 /* Post.swift in Sources */,
 				4EF2134C2936894C00CE1CD3 /* InfoViewController.swift in Sources */,
 				4E3DF59C2938C71D0023B7D9 /* ProfileHeaderView.swift in Sources */,
+				4EE5C62029424E4200D901A5 /* PostTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
