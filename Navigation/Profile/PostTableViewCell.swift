@@ -21,7 +21,7 @@ final class PostTableViewCell: UITableViewCell {
     }(UILabel())
 
     private lazy var cellImage: UIImageView = {
-        $0.backgroundColor = .black
+        $0.backgroundColor = BackgroundColors.postImg
         $0.contentMode = .scaleAspectFit
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
@@ -51,6 +51,7 @@ final class PostTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.backgroundColor = BackgroundColors.postCell
         addSubviews()
         setConstraints()
     }

@@ -9,6 +9,16 @@ import UIKit
 
 let colors = (UIColor.white, UIColor.black)
 
+// Попробовал сделать так. Вроде ничем не лучше, чем множество с ярлыками, а кода больше.
+enum BackgroundColors {
+    static let tabBar: UIColor = .systemBackground
+    static let tableProfile: UIColor = .systemCyan
+    static let profileHeader: UIColor = .systemGreen
+    static let previewCell: UIColor = .systemYellow
+    static let postCell: UIColor = .systemGray3
+    static let postImg: UIColor = .magenta
+}
+
 let pagePadding = 16.0
 
 let headerHeight = 220.0
@@ -17,17 +27,17 @@ let logoVKsize = (w: 100.0, h: 100.0)
 
 var posts: [Post] = [
     Post(author: "Me",
-         image: "me",
+         image: "3c",
          description: "My fiest post My fiest post My fiest post My fiest post My fiest post My fiest post My fiest post My fiest post My fiest post",
          likes: 1,
          views: 1),
     Post(author: "You",
-         image: "you",
+         image: "1s",
          description: "that's funny that's funny that's funny that's funny that's funny that's funny that's funny that's funny that's funny",
          likes: 2,
          views: 2),
     Post(author: "We",
-         image: "hw3",
+         image: "IMG_7536",
          description: "We want post We want post We want post We want post We want post We want post We want post We want post We want post",
          likes: 22,
          views: 33),
@@ -37,3 +47,5 @@ var posts: [Post] = [
          likes: 0,
          views: 0),
 ]
+
+let photos = ["1c", "1s"]

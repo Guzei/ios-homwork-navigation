@@ -10,87 +10,78 @@ import UIKit
 
 final class LogInViewController: UIViewController {
 
-// MARK: - properties
-
     private lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.backgroundColor = .white
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
+        $0.backgroundColor = .white
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIScrollView())
 
     private lazy var contentView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+        $0.backgroundColor = .white
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIView())
 
     private lazy var logoVK: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "logoVK")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
+        $0.image = UIImage(named: "logoVK")
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIImageView())
 
     private lazy var loginForm: UIStackView = {
-        let stackView = UIStackView()
-        stackView.backgroundColor = .systemGray6
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.alignment = .fill
-        stackView.layer.cornerRadius = 10
-        stackView.layer.borderColor = UIColor.lightGray.cgColor
-        stackView.layer.borderWidth = 0.5
-        stackView.clipsToBounds = true
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
+        $0.backgroundColor = .systemGray6
+        $0.axis = .vertical
+        $0.distribution = .fillEqually
+        $0.alignment = .fill
+        $0.layer.cornerRadius = 10
+        $0.layer.borderColor = UIColor.lightGray.cgColor
+        $0.layer.borderWidth = 0.5
+        $0.clipsToBounds = true
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIStackView())
 
     private lazy var loginField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Email or phone"
-        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: pagePadding, height: 0))
-        textField.leftViewMode = .always
-        textField.layer.borderColor = UIColor.lightGray.cgColor
-        textField.layer.borderWidth = 0.5
-        textField.backgroundColor = .systemGray6
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
+        $0.placeholder = "Email or phone"
+        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: pagePadding, height: 0))
+        $0.leftViewMode = .always
+        $0.layer.borderColor = UIColor.lightGray.cgColor
+        $0.layer.borderWidth = 0.5
+        $0.backgroundColor = .systemGray6
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UITextField())
 
     private lazy var passwordField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Password"
-        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: pagePadding, height: 0))
-        textField.leftViewMode = .always
-        textField.isSecureTextEntry = true
-        textField.autocapitalizationType = .none
-        textField.backgroundColor = .systemGray6
-        textField.textColor = .black
-        textField.font = .systemFont(ofSize: 16)
-        textField.tintColor = UIColor(named: "colorVK")
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
+        $0.placeholder = "Password"
+        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: pagePadding, height: 0))
+        $0.leftViewMode = .always
+        $0.isSecureTextEntry = true
+        $0.autocapitalizationType = .none
+        $0.backgroundColor = .systemGray6
+        $0.textColor = .black
+        $0.font = .systemFont(ofSize: 16)
+        $0.tintColor = UIColor(named: "colorVK")
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UITextField())
 
     private lazy var button: UIButton = {
-        let button = UIButton()
-        button.setTitle("Login", for: .normal)
+        $0.setTitle("Login", for: .normal)
         if let img = UIImage(named: "pixelVK") {
-            button.setBackgroundImage(img, for: .normal)
+            $0.setBackgroundImage(img, for: .normal)
         } else if let color = UIColor.init(named: "colorVK") {
-            button.backgroundColor = color
+            $0.backgroundColor = color
         } else {
-            button.backgroundColor = .systemBlue
+            $0.backgroundColor = .systemBlue
         }
-        button.layer.cornerRadius = 10
-        button.clipsToBounds = true
-        button.alpha = (button.isSelected || button.isHighlighted ) ? 0.8 : 1.0
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(pressButton), for: .touchUpInside)
-        return button
-    }()
+        $0.layer.cornerRadius = 10
+        $0.clipsToBounds = true
+        $0.alpha = ($0.isSelected || $0.isHighlighted ) ? 0.8 : 1.0
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.addTarget(self, action: #selector(pressButton), for: .touchUpInside)
+        return $0
+    }(UIButton())
 
 // MARK: - inits
 
