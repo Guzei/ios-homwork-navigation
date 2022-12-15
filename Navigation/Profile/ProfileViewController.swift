@@ -18,7 +18,6 @@ final class ProfileViewController: UIViewController {
         $0.register(PostTableViewCell.self, forCellReuseIdentifier: postIdentifier)
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.sectionFooterHeight = 0
-//        $0.sectionHeaderHeight = 0
         return $0
     }(UITableView(frame: .zero, style: .grouped)) // insetGrouped - красиво
 

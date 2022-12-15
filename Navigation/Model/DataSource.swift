@@ -17,6 +17,7 @@ enum BackgroundColors {
     static let previewCell: UIColor = .systemYellow
     static let postCell: UIColor = .systemGray3
     static let postImg: UIColor = .magenta
+    static let collectionPreview: UIColor = .systemGray4
 }
 
 let pagePadding = 16.0
@@ -48,4 +49,4 @@ var posts: [Post] = [
          views: 0),
 ]
 
-let photos = ["1c", "1s"]
+let photos = ["IMG_7536","1c","1s","2c","2s","3c","4c","5c","6c","7c","8c","8s","9c","10c","10s","11c","11s","12c","13c","14c","guest"]

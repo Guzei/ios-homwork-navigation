@@ -13,6 +13,7 @@
 		4E37BC712935012F0034A316 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E37BC702935012F0034A316 /* Assets.xcassets */; };
 		4E37BC742935012F0034A316 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E37BC722935012F0034A316 /* LaunchScreen.storyboard */; };
 		4E3DF59C2938C71D0023B7D9 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3DF59B2938C71D0023B7D9 /* ProfileHeaderView.swift */; };
+		4E8A9A88294A432500E668F2 /* PreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8A9A87294A432500E668F2 /* PreviewCell.swift */; };
 		4ECB5B812947E72B00BFA357 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECB5B802947E72B00BFA357 /* PhotosTableViewCell.swift */; };
 		4ED17BFF293E5A9700CAB8D7 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED17BFE293E5A9700CAB8D7 /* DataSource.swift */; };
 		4EE5C619293FA1D400D901A5 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE5C618293FA1D400D901A5 /* TabBarController.swift */; };
@@ -33,6 +34,7 @@
 		4E37BC732935012F0034A316 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E37BC752935012F0034A316 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E3DF59B2938C71D0023B7D9 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		4E8A9A87294A432500E668F2 /* PreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCell.swift; sourceTree = "<group>"; };
 		4ECB5B802947E72B00BFA357 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		4ED17BFE293E5A9700CAB8D7 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		4EE5C618293FA1D400D901A5 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			children = (
 				4EE5C61A293FA49200D901A5 /* LogInViewController.swift */,
 				4E3DF59B2938C71D0023B7D9 /* ProfileHeaderView.swift */,
+				4E8A9A87294A432500E668F2 /* PreviewCell.swift */,
 				4ECB5B802947E72B00BFA357 /* PhotosTableViewCell.swift */,
 				4EE5C61F29424E4200D901A5 /* PostTableViewCell.swift */,
 				4EF2134D2936897600CE1CD3 /* ProfileViewController.swift */,
@@ -200,6 +203,7 @@
 				4E37BC6A2935012E0034A316 /* SceneDelegate.swift in Sources */,
 				4EF21350293689EC00CE1CD3 /* Post.swift in Sources */,
 				4ECB5B812947E72B00BFA357 /* PhotosTableViewCell.swift in Sources */,
+				4E8A9A88294A432500E668F2 /* PreviewCell.swift in Sources */,
 				4EF2134C2936894C00CE1CD3 /* InfoViewController.swift in Sources */,
 				4E3DF59C2938C71D0023B7D9 /* ProfileHeaderView.swift in Sources */,
 				4EE5C62029424E4200D901A5 /* PostTableViewCell.swift in Sources */,
