@@ -10,8 +10,11 @@ import UIKit
 final class PhotosTableViewCell: UITableViewCell {
 
     let photoIdentifier = "photo"
+//    var imgWH = 0.0
+
 
     private lazy var headerPreview: UIStackView = {
+        $0.backgroundColor = BackgroundColors.headerPreview
         $0.axis = .horizontal
         $0.alignment = .center
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -21,12 +24,12 @@ final class PhotosTableViewCell: UITableViewCell {
     private lazy var label: UILabel = {
         $0.text = "Photos"
         $0.font = .boldSystemFont(ofSize: 24)
-        $0.textColor = .black                                   
+        $0.textColor = .black
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
 
-    private lazy var forward: UIImageView = {                     
+    private lazy var forward: UIImageView = {
         $0.image = UIImage(systemName: "arrow.forward")
         $0.tintColor = .black
         //button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
@@ -34,33 +37,19 @@ final class PhotosTableViewCell: UITableViewCell {
         return $0
     }(UIImageView())
 
-
-    private lazy var photoPreview1: UICollectionView = {
-        let layout: UICollectionViewFlowLayout = {
-            let layout = UICollectionViewFlowLayout()
-            layout.scrollDirection = .horizontal
-            layout.minimumInteritemSpacing = 8
-            return layout
-        }()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = BackgroundColors.collectionPreview
-        collectionView.register(PreviewCell.self, forCellWithReuseIdentifier: photoIdentifier)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.dataSource = self
-//        collectionView.delegate = self
-        return collectionView
-    }()
     private lazy var photoPreview: UICollectionView = {
         let layout: UICollectionViewFlowLayout = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .horizontal
-            layout.minimumInteritemSpacing = 8
+//            layout.itemSize = CGSize(width: imgWH, height: imgWH)
+//            layout.minimumInteritemSpacing = 8
             return layout
         }()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .systemYellow
         collectionView.register(PreviewCell.self, forCellWithReuseIdentifier: photoIdentifier)
         collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -70,7 +59,6 @@ final class PhotosTableViewCell: UITableViewCell {
         contentView.backgroundColor = BackgroundColors.previewCell
         addSubviews()
         setConstraints()
-        
     }
 
     required init?(coder: NSCoder) {
@@ -87,18 +75,22 @@ final class PhotosTableViewCell: UITableViewCell {
     private func setConstraints() {
         NSLayoutConstraint.activate([
 
-            headerPreview.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            headerPreview.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            headerPreview.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-//            headerPreview.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            headerPreview.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Paddings.photosPreview),
+            headerPreview.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Paddings.photosPreview),
+            headerPreview.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Paddings.photosPreview),
 
-            photoPreview.topAnchor.constraint(equalTo: headerPreview.bottomAnchor),
-            photoPreview.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            photoPreview.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            photoPreview.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            photoPreview.heightAnchor.constraint(equalToConstant: 100),
+            photoPreview.topAnchor.constraint(equalTo: headerPreview.bottomAnchor, constant: Paddings.photosPreview),
+            photoPreview.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Paddings.photosPreview),
+            photoPreview.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Paddings.photosPreview),
+            photoPreview.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Paddings.photosPreview),
 
         ])
+        // без высоты настроить не сумел
+        // высота зависит от ширины. Ниже, в экстеншене можно расчитать лучше, исходя из ширины коллекции, но тут найти её не сумел
+        // поэтому так, через ширину девайса
+        let imgWH = ((UIScreen.main.bounds.width - 2 * Paddings.photosPreview) - 3 * Paddings.photo) / 4 + 1
+        // 1 -- это компенсанция округлений. Иначе на пункт разрыв и ругать в статусе.
+        photoPreview.heightAnchor.constraint(equalToConstant: imgWH).isActive = true // 82-87
     }
 }
 
@@ -112,5 +104,17 @@ extension PhotosTableViewCell: UICollectionViewDataSource {
         let cell = photoPreview.dequeueReusableCell(withReuseIdentifier: photoIdentifier, for: indexPath) as! PreviewCell
         cell.config(indexPath.row)
         return cell
+    }
+}
+
+extension PhotosTableViewCell: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let imgWH = (photoPreview.frame.width - 3 * Paddings.photo) / 4
+        return CGSize(width: imgWH, height: imgWH)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        Paddings.photo
     }
 }

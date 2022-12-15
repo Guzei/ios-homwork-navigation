@@ -18,9 +18,14 @@ enum BackgroundColors {
     static let postCell: UIColor = .systemGray3
     static let postImg: UIColor = .magenta
     static let collectionPreview: UIColor = .systemGray4
+    static let headerPreview: UIColor = .white
 }
 
-let pagePadding = 16.0
+enum Paddings {
+    static let page: CGFloat = 16
+    static let photosPreview: CGFloat = 12
+    static let photo: CGFloat = 8
+}
 
 let headerHeight = 220.0
 

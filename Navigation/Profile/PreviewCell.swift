@@ -11,11 +11,10 @@ final class PreviewCell: UICollectionViewCell {
 
     private lazy var img: UIImageView = {
         $0.backgroundColor = BackgroundColors.postImg
-//        $0.contentMode = .scaleAspectFit
-//        $0.contentMode = .scaleAspectFill
+        $0.clipsToBounds = true
+        $0.contentMode = .scaleAspectFill // Fit
+        $0.layer.cornerRadius = 6
         $0.translatesAutoresizingMaskIntoConstraints = false
-//        $0.layer.cornerRadius = 6
-//        $0.clipsToBounds = true
         return $0
     }(UIImageView()) // frame: .zero
 
@@ -32,17 +31,15 @@ final class PreviewCell: UICollectionViewCell {
 
     private func addSubviews() {
         contentView.addSubview(img)
-//        contentView.clipsToBounds = true  // MARK: TODO:
     }
 
     private func setConstraints() {
         NSLayoutConstraint.activate([
 
             img.topAnchor.constraint(equalTo: topAnchor),
-            img.bottomAnchor.constraint(equalTo: bottomAnchor),
             img.leadingAnchor.constraint(equalTo: leadingAnchor),
             img.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            img.heightAnchor.constraint(equalTo: img.widthAnchor),
+            img.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
 

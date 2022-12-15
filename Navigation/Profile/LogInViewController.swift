@@ -43,7 +43,7 @@ final class LogInViewController: UIViewController {
 
     private lazy var loginField: UITextField = {
         $0.placeholder = "Email or phone"
-        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: pagePadding, height: 0))
+        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: Paddings.page, height: 0))
         $0.leftViewMode = .always
         $0.layer.borderColor = UIColor.lightGray.cgColor
         $0.layer.borderWidth = 0.5
@@ -54,7 +54,7 @@ final class LogInViewController: UIViewController {
 
     private lazy var passwordField: UITextField = {
         $0.placeholder = "Password"
-        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: pagePadding, height: 0))
+        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: Paddings.page, height: 0))
         $0.leftViewMode = .always
         $0.isSecureTextEntry = true
         $0.autocapitalizationType = .none
@@ -125,8 +125,8 @@ final class LogInViewController: UIViewController {
             logoVK.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
 
             loginForm.topAnchor.constraint(equalTo: logoVK.bottomAnchor, constant: 120),
-            loginForm.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: pagePadding),
-            loginForm.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -pagePadding),
+            loginForm.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Paddings.page),
+            loginForm.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -Paddings.page),
 
             loginField.topAnchor.constraint(equalTo: loginForm.topAnchor),
             loginField.leadingAnchor.constraint(equalTo: loginForm.leadingAnchor),
@@ -138,7 +138,7 @@ final class LogInViewController: UIViewController {
             passwordField.trailingAnchor.constraint(equalTo: loginForm.trailingAnchor),
             passwordField.heightAnchor.constraint(equalToConstant: 50),
 
-            button.topAnchor.constraint(equalTo: loginForm.bottomAnchor, constant: pagePadding),
+            button.topAnchor.constraint(equalTo: loginForm.bottomAnchor, constant: Paddings.page),
             button.leadingAnchor.constraint(equalTo: loginForm.leadingAnchor),
             button.trailingAnchor.constraint(equalTo: loginForm.trailingAnchor),
             button.heightAnchor.constraint(equalToConstant: 50),
@@ -164,7 +164,7 @@ final class LogInViewController: UIViewController {
         guard let userInfo = notification.userInfo else { return }
         let keyboardFrame:CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
         var contentInset:UIEdgeInsets = scrollView.contentInset
-        contentInset.bottom = keyboardFrame.size.height + 2 * pagePadding
+        contentInset.bottom = keyboardFrame.size.height + 2 * Paddings.page
         scrollView.contentInset = contentInset
     }
 
