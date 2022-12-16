@@ -24,8 +24,7 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
-        view.backgroundColor = .systemRed
-//        navigationController?.navigationBar.isHidden = true
+//        view.backgroundColor = .systemRed
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),

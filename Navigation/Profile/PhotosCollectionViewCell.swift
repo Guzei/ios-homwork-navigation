@@ -10,7 +10,7 @@ import UIKit
 final class PhotosCollectionViewCell: UICollectionViewCell {
 
     private lazy var img: UIImageView = {
-        $0.backgroundColor = BackgroundColors.postImg
+        $0.backgroundColor = BackgroundColors.img
         $0.clipsToBounds = true
         $0.contentMode = .scaleAspectFill // Fit
 //        $0.addTarget(self, action: #selector(selectImg), for: .allTouchEvents) // touchUpInside

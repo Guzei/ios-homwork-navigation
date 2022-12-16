@@ -9,15 +9,14 @@ import UIKit
 
 let colors = (UIColor.white, UIColor.black)
 
-// Нейминг в процессе наладки... // вариант для отладки
+// чистовик // вариант для отладки
 enum BackgroundColors {
-    static let mainView: UIColor = .white // .systemYellow
+    static let mainView: UIColor = .systemGray5 // .systemYellow
     static let tabBar: UIColor = .systemBackground
-    static let profileHeader: UIColor = .systemGreen
-    static let previewCell: UIColor = .systemCyan
-    static let postCell: UIColor = .systemGray
-    static let postImg: UIColor = .magenta
-    static let collectionPreview: UIColor = .systemGray4
+    static let profileHeader: UIColor = .systemGray5 // .systemGreen
+    static let previewCell: UIColor = .white // .systemCyan
+    static let postCell: UIColor = .white // .systemGray5
+    static let img: UIColor = .black // .magenta
     static let headerPreview: UIColor = .white
 }
 

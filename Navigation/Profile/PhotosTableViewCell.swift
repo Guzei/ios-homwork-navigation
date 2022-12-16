@@ -40,7 +40,7 @@ final class PhotosTableViewCell: UITableViewCell {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .systemRed
+//        collectionView.backgroundColor = .systemRed
         collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: photoIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self

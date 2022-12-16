@@ -21,7 +21,7 @@ final class PostTableViewCell: UITableViewCell {
     }(UILabel())
 
     private lazy var cellImage: UIImageView = {
-        $0.backgroundColor = BackgroundColors.postImg
+        $0.backgroundColor = BackgroundColors.img
         $0.contentMode = .scaleAspectFit
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0

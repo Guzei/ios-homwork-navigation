@@ -14,7 +14,7 @@ class PhotosViewController: UIViewController {
     private lazy var photoGallery: UICollectionView = {
         let layout = UICollectionViewFlowLayout()   // layout.scrollDirection = .vertical - по-умолчанию
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = BackgroundColors.collectionPreview
+        collectionView.backgroundColor = BackgroundColors.mainView
         collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: photoIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -25,7 +25,6 @@ class PhotosViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(photoGallery)
-        view.backgroundColor = BackgroundColors.mainView
         navigationItem.title = "Photo Gallery"
         navigationController?.navigationBar.isHidden = false
 
