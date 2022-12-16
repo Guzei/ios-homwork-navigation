@@ -9,7 +9,7 @@ import UIKit
 
 final class TabBarController: UITabBarController {
 
-    let vcFeed = PhotosViewController() // PhotosViewController() // FeedViewController()
+    let vcFeed = FeedViewController()
     let vcLogin = LogInViewController()
 
     override func viewDidLoad() {
@@ -32,7 +32,7 @@ final class TabBarController: UITabBarController {
         }()
 
         viewControllers = [ncFeed, ncProfile]
-        selectedIndex = 0
+        selectedIndex = 1
     }
 }
 

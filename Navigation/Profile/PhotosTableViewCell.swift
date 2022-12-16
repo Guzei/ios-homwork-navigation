@@ -10,6 +10,7 @@ import UIKit
 final class PhotosTableViewCell: UITableViewCell {
 
     let photoIdentifier = "photo"
+    let countInPreview = 3.0
 
     private lazy var headerPreview: UIStackView = {
         $0.backgroundColor = BackgroundColors.headerPreview
@@ -30,7 +31,6 @@ final class PhotosTableViewCell: UITableViewCell {
     private lazy var forward: UIImageView = {
         $0.image = UIImage(systemName: "arrow.forward")
         $0.tintColor = .black
-//        $0.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
@@ -82,20 +82,12 @@ final class PhotosTableViewCell: UITableViewCell {
         // без высоты настроить не сумел
         // высота зависит от ширины. Ниже, в экстеншене можно расчитать, исходя из ширины коллекции
         // Здесь же только, через ширину девайса сумел
-//        print(photoPreview.frame.width) // даёт 0.0 что логично, но хотелось :)
-        let imgWH = ((UIScreen.main.bounds.width - 2 * Paddings.photosPreview) - 3 * Paddings.photo) / 4
+        print(photoPreview.frame.width) // всегда 0.0 что логично, но хотелось :)
+        print(self.frame.width) // всегда 320.0 Что это? Откуда это берётся? На всех экранах -- 320.
+        print(UIScreen.main.bounds.width)  // даёт ширину экрана. Можно работать.
+        let imgWH = ((UIScreen.main.bounds.width - 2 * Paddings.photosPreview) - countInPreview * Paddings.photo) / (countInPreview + 0.5)
         photoPreview.heightAnchor.constraint(equalToConstant: imgWH).isActive = true // 82-87
     }
-
-//    @objc func pressButton() {
-//        let vcProfile = ProfileViewController()
-//        navigationController?.pushViewController(vcProfile, animated: true)
-//    }
-//
-//    @objc func buttonPressed() {
-//        dele
-//        navigationController?.pushViewController(PhotosViewController(), animated: true)
-//    }
 }
 
 extension PhotosTableViewCell: UICollectionViewDataSource {
@@ -114,7 +106,7 @@ extension PhotosTableViewCell: UICollectionViewDataSource {
 extension PhotosTableViewCell: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let imgWH = (photoPreview.frame.width - 3 * Paddings.photo) / 4
+        let imgWH = (photoPreview.frame.width - countInPreview * Paddings.photo) / (countInPreview + 0.5)
         return CGSize(width: imgWH, height: imgWH)
     }
 
@@ -122,7 +114,15 @@ extension PhotosTableViewCell: UICollectionViewDelegateFlowLayout {
         Paddings.photo
     }
 
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        navigatin
-//    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        let viewController = Photo()
+        viewController.name = photos[indexPath.row]
+
+        if let tv = superview as? UITableView {
+            if let vc = tv.dataSource as? UIViewController {
+                vc.navigationController?.pushViewController(viewController, animated: true)
+            }
+        }
+    }
 }

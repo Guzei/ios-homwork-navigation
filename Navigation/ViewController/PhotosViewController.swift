@@ -12,9 +12,7 @@ class PhotosViewController: UIViewController {
     let photoIdentifier = "photo"
 
     private lazy var photoGallery: UICollectionView = {
-//        UIEdgeInsets
-        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .vertical
+        let layout = UICollectionViewFlowLayout()   // layout.scrollDirection = .vertical - по-умолчанию
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = BackgroundColors.collectionPreview
         collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: photoIdentifier)
@@ -40,7 +38,6 @@ class PhotosViewController: UIViewController {
     }
 }
 
-
 extension PhotosViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -61,15 +58,23 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: imgWH, height: imgWH)
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        Paddings.photo
-    }
-
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         UIEdgeInsets(top: Paddings.photo, left: Paddings.photo, bottom: Paddings.photo, right: Paddings.photo)
     }
 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        Paddings.photo
+    }
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         Paddings.photo
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let viewController = Photo()
+        viewController.name = photos[indexPath.row]
+        // можно двумя способами
+        // navigationController?.pushViewController(viewController, animated: true)
+        present(viewController, animated: true)
     }
 }

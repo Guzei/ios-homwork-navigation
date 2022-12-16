@@ -1,5 +1,5 @@
 //
-//  PreviewCell.swift
+//  PhotosCollectionViewCell.swift
 //  Navigation
 //
 //  Created by Igor Guzei on 14.12.2022.
@@ -13,6 +13,7 @@ final class PhotosCollectionViewCell: UICollectionViewCell {
         $0.backgroundColor = BackgroundColors.postImg
         $0.clipsToBounds = true
         $0.contentMode = .scaleAspectFill // Fit
+//        $0.addTarget(self, action: #selector(selectImg), for: .allTouchEvents) // touchUpInside
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView()) // frame: .zero

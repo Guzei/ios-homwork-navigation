@@ -25,7 +25,7 @@ final class ProfileViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(tableView)
         view.backgroundColor = .systemRed
-        navigationController?.navigationBar.isHidden = true
+//        navigationController?.navigationBar.isHidden = true
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -35,9 +35,11 @@ final class ProfileViewController: UIViewController {
         ])
     }
 
-//    override func viewWillAppear(_ animated: Bool) {
-//        navigationController?.navigationBar.isHidden = true
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.tabBarController?.tabBar.isHidden = false
+    }
 
 }
 
@@ -72,7 +74,8 @@ extension ProfileViewController: UITableViewDelegate {
         section == 0 ? headerHeight : 0
     }
 
-    // 4. По тапу на ячейку...
+    // ! 4. По тапу на ячейку должен быть осуществлен переход на экран "фото галереи"
+    // а по тапу на фото откроем его
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         navigationController?.pushViewController(PhotosViewController(), animated: true)
     }
