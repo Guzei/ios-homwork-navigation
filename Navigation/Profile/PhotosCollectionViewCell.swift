@@ -7,13 +7,12 @@
 
 import UIKit
 
-final class PreviewCell: UICollectionViewCell {
+final class PhotosCollectionViewCell: UICollectionViewCell {
 
     private lazy var img: UIImageView = {
         $0.backgroundColor = BackgroundColors.postImg
         $0.clipsToBounds = true
         $0.contentMode = .scaleAspectFill // Fit
-        $0.layer.cornerRadius = 6
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView()) // frame: .zero
@@ -36,14 +35,15 @@ final class PreviewCell: UICollectionViewCell {
     private func setConstraints() {
         NSLayoutConstraint.activate([
 
-            img.topAnchor.constraint(equalTo: topAnchor),
+            img.topAnchor.constraint(equalTo: topAnchor), 
             img.leadingAnchor.constraint(equalTo: leadingAnchor),
             img.trailingAnchor.constraint(equalTo: trailingAnchor),
             img.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
 
-    func config(_ i: Int) {
-        img.image = UIImage(named: photos[i])
+    func config(index: Int, radius: CGFloat = 0.0) {
+        img.image = UIImage(named: photos[index])
+        img.layer.cornerRadius = radius
     }
 }

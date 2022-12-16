@@ -163,7 +163,7 @@ final class LogInViewController: UIViewController {
     @objc private func showKeyboard(notification: NSNotification) {
         guard let userInfo = notification.userInfo else { return }
         let keyboardFrame:CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
-        var contentInset:UIEdgeInsets = scrollView.contentInset
+        var contentInset: UIEdgeInsets = scrollView.contentInset
         contentInset.bottom = keyboardFrame.size.height + 2 * Paddings.page
         scrollView.contentInset = contentInset
     }

@@ -9,13 +9,13 @@ import UIKit
 
 let colors = (UIColor.white, UIColor.black)
 
-// Попробовал сделать так. Вроде ничем не лучше, чем множество с ярлыками, а кода больше.
+// Нейминг в процессе наладки...
 enum BackgroundColors {
+    static let mainView: UIColor = .systemYellow
     static let tabBar: UIColor = .systemBackground
-    static let tableProfile: UIColor = .systemCyan
     static let profileHeader: UIColor = .systemGreen
-    static let previewCell: UIColor = .systemYellow
-    static let postCell: UIColor = .systemGray3
+    static let previewCell: UIColor = .systemCyan
+    static let postCell: UIColor = .systemGray
     static let postImg: UIColor = .magenta
     static let collectionPreview: UIColor = .systemGray4
     static let headerPreview: UIColor = .white

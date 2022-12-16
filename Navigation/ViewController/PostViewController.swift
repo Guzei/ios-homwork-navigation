@@ -15,7 +15,7 @@ final class PostViewController: UIViewController {
         super.viewDidLoad()
 
         title = "Post"
-        view.backgroundColor = .systemYellow
+        view.backgroundColor = BackgroundColors.mainView
 
         title = post?.author ?? "no author"
 

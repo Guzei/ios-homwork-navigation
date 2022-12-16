@@ -10,8 +10,6 @@ import UIKit
 final class PhotosTableViewCell: UITableViewCell {
 
     let photoIdentifier = "photo"
-//    var imgWH = 0.0
-
 
     private lazy var headerPreview: UIStackView = {
         $0.backgroundColor = BackgroundColors.headerPreview
@@ -32,22 +30,18 @@ final class PhotosTableViewCell: UITableViewCell {
     private lazy var forward: UIImageView = {
         $0.image = UIImage(systemName: "arrow.forward")
         $0.tintColor = .black
-        //button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+//        $0.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
 
+    // тут инициализация с $0 не вышла. Из-за layout похоже. Порядок инициализации?
     private lazy var photoPreview: UICollectionView = {
-        let layout: UICollectionViewFlowLayout = {
-            let layout = UICollectionViewFlowLayout()
-            layout.scrollDirection = .horizontal
-//            layout.itemSize = CGSize(width: imgWH, height: imgWH)
-//            layout.minimumInteritemSpacing = 8
-            return layout
-        }()
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .systemYellow
-        collectionView.register(PreviewCell.self, forCellWithReuseIdentifier: photoIdentifier)
+        collectionView.backgroundColor = .systemRed
+        collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: photoIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -86,12 +80,22 @@ final class PhotosTableViewCell: UITableViewCell {
 
         ])
         // без высоты настроить не сумел
-        // высота зависит от ширины. Ниже, в экстеншене можно расчитать лучше, исходя из ширины коллекции, но тут найти её не сумел
-        // поэтому так, через ширину девайса
-        let imgWH = ((UIScreen.main.bounds.width - 2 * Paddings.photosPreview) - 3 * Paddings.photo) / 4 + 1
-        // 1 -- это компенсанция округлений. Иначе на пункт разрыв и ругать в статусе.
+        // высота зависит от ширины. Ниже, в экстеншене можно расчитать, исходя из ширины коллекции
+        // Здесь же только, через ширину девайса сумел
+//        print(photoPreview.frame.width) // даёт 0.0 что логично, но хотелось :)
+        let imgWH = ((UIScreen.main.bounds.width - 2 * Paddings.photosPreview) - 3 * Paddings.photo) / 4
         photoPreview.heightAnchor.constraint(equalToConstant: imgWH).isActive = true // 82-87
     }
+
+//    @objc func pressButton() {
+//        let vcProfile = ProfileViewController()
+//        navigationController?.pushViewController(vcProfile, animated: true)
+//    }
+//
+//    @objc func buttonPressed() {
+//        dele
+//        navigationController?.pushViewController(PhotosViewController(), animated: true)
+//    }
 }
 
 extension PhotosTableViewCell: UICollectionViewDataSource {
@@ -101,8 +105,8 @@ extension PhotosTableViewCell: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = photoPreview.dequeueReusableCell(withReuseIdentifier: photoIdentifier, for: indexPath) as! PreviewCell
-        cell.config(indexPath.row)
+        let cell = photoPreview.dequeueReusableCell(withReuseIdentifier: photoIdentifier, for: indexPath) as! PhotosCollectionViewCell
+        cell.config(index: indexPath.row, radius: 6)
         return cell
     }
 }
@@ -117,4 +121,8 @@ extension PhotosTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         Paddings.photo
     }
+
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        navigatin
+//    }
 }
