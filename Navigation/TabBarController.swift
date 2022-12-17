@@ -15,7 +15,7 @@ final class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tabBar.backgroundColor = .systemBackground
+        tabBar.backgroundColor = BackgroundColors.tabBar
 
         let ncFeed: UINavigationController = {
             let feed = UINavigationController()

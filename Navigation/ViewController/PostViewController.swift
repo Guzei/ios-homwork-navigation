@@ -13,14 +13,13 @@ final class PostViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        title = "Post"
-        view.backgroundColor = .systemYellow
-
+        view.backgroundColor = BackgroundColors.mainView
         title = post?.author ?? "no author"
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style: .done, target: self, action: #selector(press))
     }
 
-    @objc func press() { present(InfoViewController(), animated: true) }
+    @objc func press() {
+        present(InfoViewController(), animated: true)
+    }
 }

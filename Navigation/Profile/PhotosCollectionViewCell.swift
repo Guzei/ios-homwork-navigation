@@ -1,0 +1,50 @@
+//
+//  PhotosCollectionViewCell.swift
+//  Navigation
+//
+//  Created by Igor Guzei on 14.12.2022.
+//
+
+import UIKit
+
+final class PhotosCollectionViewCell: UICollectionViewCell {
+
+    private lazy var img: UIImageView = {
+        $0.backgroundColor = BackgroundColors.img
+        $0.clipsToBounds = true
+        $0.contentMode = .scaleAspectFill // Fit
+//        $0.addTarget(self, action: #selector(selectImg), for: .allTouchEvents) // touchUpInside
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIImageView()) // frame: .zero
+
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
+        contentView.backgroundColor = BackgroundColors.postCell
+        addSubviews()
+        setConstraints()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private func addSubviews() {
+        contentView.addSubview(img)
+    }
+
+    private func setConstraints() {
+        NSLayoutConstraint.activate([
+
+            img.topAnchor.constraint(equalTo: topAnchor), 
+            img.leadingAnchor.constraint(equalTo: leadingAnchor),
+            img.trailingAnchor.constraint(equalTo: trailingAnchor),
+            img.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
+    }
+
+    func config(index: Int, radius: CGFloat = 0.0) {
+        img.image = UIImage(named: photos[index])
+        img.layer.cornerRadius = radius
+    }
+}

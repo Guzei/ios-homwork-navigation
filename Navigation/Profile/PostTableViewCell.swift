@@ -21,7 +21,7 @@ final class PostTableViewCell: UITableViewCell {
     }(UILabel())
 
     private lazy var cellImage: UIImageView = {
-        $0.backgroundColor = .black
+        $0.backgroundColor = BackgroundColors.img
         $0.contentMode = .scaleAspectFit
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
@@ -51,6 +51,7 @@ final class PostTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.backgroundColor = BackgroundColors.postCell
         addSubviews()
         setConstraints()
     }
@@ -70,25 +71,25 @@ final class PostTableViewCell: UITableViewCell {
     private func setConstraints() {
         NSLayoutConstraint.activate([
 
-            cellAuthor.topAnchor.constraint(equalTo: contentView.topAnchor, constant: pagePadding),
-            cellAuthor.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: pagePadding),
-            cellAuthor.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -pagePadding),
+            cellAuthor.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Paddings.page),
+            cellAuthor.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Paddings.page),
+            cellAuthor.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Paddings.page),
 
-            cellImage.topAnchor.constraint(equalTo: cellAuthor.bottomAnchor, constant: pagePadding),
+            cellImage.topAnchor.constraint(equalTo: cellAuthor.bottomAnchor, constant: Paddings.page),
             cellImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             cellImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             cellImage.heightAnchor.constraint(equalTo: cellImage.widthAnchor),
 
-            cellDescription.topAnchor.constraint(equalTo: cellImage.bottomAnchor, constant: pagePadding),
+            cellDescription.topAnchor.constraint(equalTo: cellImage.bottomAnchor, constant: Paddings.page),
             cellDescription.leadingAnchor.constraint(equalTo: cellAuthor.leadingAnchor),
             cellDescription.trailingAnchor.constraint(equalTo: cellAuthor.trailingAnchor),
 
-            cellLikes.topAnchor.constraint(equalTo: cellDescription.bottomAnchor, constant: pagePadding),
+            cellLikes.topAnchor.constraint(equalTo: cellDescription.bottomAnchor, constant: Paddings.page),
             cellLikes.leadingAnchor.constraint(equalTo: cellAuthor.leadingAnchor),
 
             cellViews.topAnchor.constraint(equalTo: cellLikes.topAnchor),
             cellViews.trailingAnchor.constraint(equalTo: cellAuthor.trailingAnchor),
-            cellViews.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,  constant: -pagePadding),
+            cellViews.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,  constant: -Paddings.page),
         ])
     }
 

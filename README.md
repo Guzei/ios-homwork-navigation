@@ -46,3 +46,6 @@ https://github.com/Guzei/swift-tableView
     // Returns a reusable table-view cell object for the specified reuse identifier and adds it to the table.
     // Возвращает многократно используемый объект ячейки табличного представления для указанного идентификатора повторного использования и добавляет его в таблицу.
 
+#### for memory
+
+UIScreen.main.bounds.width - ширина экрана

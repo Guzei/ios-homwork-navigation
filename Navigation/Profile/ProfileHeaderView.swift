@@ -11,7 +11,7 @@ final class ProfileHeaderView: UIView {
 
     // MARK: - variable declaration
 
-    private lazy var avatarSize = CGFloat(headerHeight - 3 * pagePadding - 50.0)  
+    private lazy var avatarSize = CGFloat(headerHeight - 3 * Paddings.page - 50.0)
 
     private lazy var avatarImageView: UIImageView = {
         $0.image = UIImage(named: "swan")
@@ -73,6 +73,7 @@ final class ProfileHeaderView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = BackgroundColors.profileHeader
         addSubviews()
         setConstraints()
     }
@@ -91,29 +92,29 @@ final class ProfileHeaderView: UIView {
     private func setConstraints() {
         NSLayoutConstraint.activate([
 
-            avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: pagePadding),
-            avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: pagePadding),
+            avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: Paddings.page),
+            avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Paddings.page),
             avatarImageView.widthAnchor.constraint(equalToConstant: avatarSize),
             avatarImageView.heightAnchor.constraint(equalToConstant: avatarSize),
 
-            fullNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: pagePadding),
-            fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: pagePadding),
-            fullNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -pagePadding),
+            fullNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: Paddings.page),
+            fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: Paddings.page),
+            fullNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Paddings.page),
 
             statusLabel.bottomAnchor.constraint(equalTo: avatarImageView.topAnchor, constant: avatarSize / 2),
-            statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: pagePadding),
-            statusLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -pagePadding),
+            statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: Paddings.page),
+            statusLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Paddings.page),
 
             statusTextField.heightAnchor.constraint(equalToConstant: 40),
             statusTextField.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor),
-            statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: pagePadding),
-            statusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -pagePadding),
+            statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: Paddings.page),
+            statusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Paddings.page),
 
             setStatusButton.heightAnchor.constraint(equalToConstant: 50),
-            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: pagePadding),
-            setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: pagePadding),
-            setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -pagePadding),
-            setStatusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -pagePadding),
+            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: Paddings.page),
+            setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Paddings.page),
+            setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Paddings.page),
+            setStatusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Paddings.page),
         ])
     }
 

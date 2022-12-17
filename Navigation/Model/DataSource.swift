@@ -9,7 +9,22 @@ import UIKit
 
 let colors = (UIColor.white, UIColor.black)
 
-let pagePadding = 16.0
+// чистовик // вариант для отладки
+enum BackgroundColors {
+    static let mainView: UIColor = .systemGray5 // .systemYellow
+    static let tabBar: UIColor = .systemBackground
+    static let profileHeader: UIColor = .systemGray5 // .systemGreen
+    static let previewCell: UIColor = .white // .systemCyan
+    static let postCell: UIColor = .white // .systemGray5
+    static let img: UIColor = .black // .magenta
+    static let headerPreview: UIColor = .white
+}
+
+enum Paddings {
+    static let page: CGFloat = 16
+    static let photosPreview: CGFloat = 12
+    static let photo: CGFloat = 8
+}
 
 let headerHeight = 220.0
 
@@ -17,17 +32,17 @@ let logoVKsize = (w: 100.0, h: 100.0)
 
 var posts: [Post] = [
     Post(author: "Me",
-         image: "me",
+         image: "3c",
          description: "My fiest post My fiest post My fiest post My fiest post My fiest post My fiest post My fiest post My fiest post My fiest post",
          likes: 1,
          views: 1),
     Post(author: "You",
-         image: "you",
+         image: "1s",
          description: "that's funny that's funny that's funny that's funny that's funny that's funny that's funny that's funny that's funny",
          likes: 2,
          views: 2),
     Post(author: "We",
-         image: "hw3",
+         image: "IMG_7536",
          description: "We want post We want post We want post We want post We want post We want post We want post We want post We want post",
          likes: 22,
          views: 33),
@@ -37,3 +52,5 @@ var posts: [Post] = [
          likes: 0,
          views: 0),
 ]
+
+let photos = ["IMG_7536","1c","1s","2c","2s","3c","4c","5c","6c","7c","8c","8s","9c","10c","10s","11c","11s","12c","13c","14c","guest"]
