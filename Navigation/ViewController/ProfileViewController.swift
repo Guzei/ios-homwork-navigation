@@ -21,17 +21,9 @@ final class ProfileViewController: UIViewController {
         return $0
     }(UITableView(frame: .zero, style: .grouped)) // insetGrouped - красиво
 
-    private lazy var transparentView: UIView = {
-        $0.backgroundColor = .black
-        $0.alpha = 0
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        return $0
-    }(UIView())
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
-        view.addSubview(transparentView)
 
         NSLayoutConstraint.activate([
 
@@ -40,12 +32,9 @@ final class ProfileViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            transparentView.topAnchor.constraint(equalTo: view.topAnchor),
-            transparentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            transparentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            transparentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-
         ])
+        print("Как из этого извлечь заданное значение отступа сверху? tableView.topAnchor:", tableView.topAnchor)
+
     }
 
     override func viewWillAppear(_ animated: Bool) {

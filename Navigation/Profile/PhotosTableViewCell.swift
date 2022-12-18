@@ -82,11 +82,9 @@ final class PhotosTableViewCell: UITableViewCell {
         // без высоты настроить не сумел
         // высота зависит от ширины. Ниже, в экстеншене можно расчитать, исходя из ширины коллекции
         // Здесь же только, через ширину девайса сумел
-        print("in photo preview:")
-        print("photoPreview.frame.width -", photoPreview.frame.width) // всегда 0.0 что логично, но хотелось :)
-        print("self.frame.width -", self.frame.width) // всегда 320.0 Что это? Откуда это берётся? На всех экранах -- 320.
-        print("UIScreen.main.bounds.width -", UIScreen.main.bounds.width)  // даёт ширину экрана. Можно работать.
-        let imgWH = ((UIScreen.main.bounds.width - 2 * Paddings.photosPreview) - countInPreview * Paddings.photo) / (countInPreview + 0.5)
+        print("\nin photo preview:")
+        print("self.frame.width -- \(self.frame.width) -- Что это? Откуда это берётся? На всех экранах -- 320.")
+        let imgWH = ((screenW - 2 * Paddings.photosPreview) - countInPreview * Paddings.photo) / (countInPreview + 0.5)
         photoPreview.heightAnchor.constraint(equalToConstant: imgWH).isActive = true // 82-87
     }
 }

@@ -29,6 +29,10 @@ enum Paddings {
 let headerHeight = 220.0
 let avatarBorderWidth = 3.0
 
+// если блокировать вращение экрана, то можено для краткасти:
+let screenW = UIScreen.main.bounds.width
+let screenH = UIScreen.main.bounds.height
+
 let logoVKsize = (w: 100.0, h: 100.0)
 
 var posts: [Post] = [

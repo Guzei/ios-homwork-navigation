@@ -25,12 +25,6 @@ final class ProfileHeaderView: UIView {
         return $0
     }(UIImageView())
 
-    private lazy var transparentView: UIView = {
-        $0.alpha = 0
-        $0.backgroundColor = .black
-        return $0
-    }(UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)))
-
     private lazy var fullNameLabel: UILabel = {
         $0.text = "Gomer"
         $0.font = .boldSystemFont(ofSize: 18)
@@ -75,19 +69,28 @@ final class ProfileHeaderView: UIView {
     }(UIButton())
 
     private lazy var statusText: String = ""
+    private lazy var avatarCenter = avatarImageView.center
+    private lazy var avatarBounds = avatarImageView.layer.bounds
+
+    // тянемся навех, чтобы иметь возможность выключить нижнюю панель навигации
+    private lazy var tabBar = ((superview as? UITableView)?.dataSource as? UIViewController)?.tabBarController?.tabBar
+
+    private lazy var transparentView: UIView = {
+        // компенсируем отступ свеху и не забываем про симметрию, чтобы центр остался на месте. Это же ничем не хуже, чем выковыривать индивидуальный отступ?
+        let view = UIView(frame: CGRect(x: 0, y: -100, width: screenW, height: screenH + 100))
+        view.backgroundColor = .black
+        view.alpha = 0.0
+        return view
+    }()
 
     private lazy var buttonX: UIButton = {
         $0.alpha = 0
-        $0.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
+        $0.setImage(UIImage(systemName: "xmark"), for: .normal)
         $0.tintColor = .white
         $0.addTarget(self, action: #selector(avatarReturn), for: .touchUpInside)
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIButton())
-
-    private lazy var avatarCenter = avatarImageView.center
-    private lazy var avatarBounds = avatarImageView.layer.bounds
-    private lazy var tabBar = ((superview as! UITableView).dataSource as! UIViewController).tabBarController?.tabBar
 
 
     // MARK: - implementation
@@ -107,7 +110,7 @@ final class ProfileHeaderView: UIView {
         addSubview(statusLabel)
         addSubview(statusTextField)
         addSubview(setStatusButton)
-//        addSubview(transparentView)
+        addSubview(transparentView)
         addSubview(avatarImageView)
         addSubview(buttonX)
     }
@@ -163,15 +166,13 @@ final class ProfileHeaderView: UIView {
         avatarBounds = avatarImageView.bounds
 
         UIView.animate(withDuration: 0.5) { [self] in
-            let screenW = UIScreen.main.bounds.width
-//            transparentView.alpha = 0.7
+            transparentView.alpha = 0.7
             avatarImageView.layer.borderWidth = 0
             avatarImageView.layer.cornerRadius = 0
-            avatarImageView.center.x = screenW / 2
-            avatarImageView.center.y = UIScreen.main.bounds.height / 2
+            avatarImageView.center = transparentView.center
             avatarImageView.layer.bounds = CGRect(x: 0, y: 0, width: screenW, height: screenW)
-            tabBar?.isHidden = true
-
+            // tabBar?.isHidden = true  // так красивее. Правда? Ой, тоько где анимация?
+            tabBar?.frame.origin.y = screenH    // Нашёл! А так ещё красивее :)
         } completion: { _ in
             UIView.animate(withDuration: 0.3, delay: 0.0) { [self] in
                 buttonX.alpha = 1
@@ -184,13 +185,15 @@ final class ProfileHeaderView: UIView {
             buttonX.alpha = 0
         } completion: { _ in
             UIView.animate(withDuration: 0.5) { [self] in
-//                transparentView.alpha = 0
+                transparentView.alpha = 0
                 avatarImageView.layer.borderWidth = avatarBorderWidth
                 avatarImageView.layer.cornerRadius = avatarSize / 2
                 avatarImageView.center = avatarCenter
                 avatarImageView.bounds = avatarBounds
-                tabBar?.isHidden = false
-                //            layoutIfNeeded()
+                if let bar = tabBar {
+                    print("\nВысота TabBar:", bar.frame.height)
+                    bar.frame.origin.y = screenH - bar.frame.height
+                }
             }
         }
     }
