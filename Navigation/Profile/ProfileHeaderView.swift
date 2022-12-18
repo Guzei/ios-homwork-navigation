@@ -14,24 +14,32 @@ final class ProfileHeaderView: UIView {
     private lazy var avatarSize = CGFloat(headerHeight - 3 * Paddings.page - 50.0)
 
     private lazy var avatarImageView: UIImageView = {
-        $0.image = UIImage(named: "swan")
+        $0.image = UIImage(named: "gomerSimpsonMoning")
         $0.clipsToBounds = true
         $0.layer.cornerRadius = avatarSize / 2
-        $0.layer.borderWidth = 3
+        $0.layer.borderWidth = avatarBorderWidth
         $0.layer.borderColor = UIColor.white.cgColor
+        $0.isUserInteractionEnabled = true
+        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(avatarAnimation)))
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
 
+    private lazy var transparentView: UIView = {
+        $0.alpha = 0
+        $0.backgroundColor = .black
+        return $0
+    }(UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)))
+
     private lazy var fullNameLabel: UILabel = {
-        $0.text = "Лебедь"
+        $0.text = "Gomer"
         $0.font = .boldSystemFont(ofSize: 18)
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
 
     private lazy var statusLabel: UILabel = {
-        $0.text = "Прекрасный день!"
+        $0.text = "— Moning!"
         $0.font = .systemFont(ofSize: 14)
         $0.textColor = .gray
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -68,6 +76,19 @@ final class ProfileHeaderView: UIView {
 
     private lazy var statusText: String = ""
 
+    private lazy var buttonX: UIButton = {
+        $0.alpha = 0
+        $0.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
+        $0.tintColor = .white
+        $0.addTarget(self, action: #selector(avatarReturn), for: .touchUpInside)
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIButton())
+
+    private lazy var avatarCenter = avatarImageView.center
+    private lazy var avatarBounds = avatarImageView.layer.bounds
+    private lazy var tabBar = ((superview as! UITableView).dataSource as! UIViewController).tabBarController?.tabBar
+
 
     // MARK: - implementation
 
@@ -82,39 +103,45 @@ final class ProfileHeaderView: UIView {
     }
 
     private func addSubviews() {
-        addSubview(avatarImageView)
         addSubview(fullNameLabel)
         addSubview(statusLabel)
         addSubview(statusTextField)
         addSubview(setStatusButton)
+//        addSubview(transparentView)
+        addSubview(avatarImageView)
+        addSubview(buttonX)
     }
 
     private func setConstraints() {
         NSLayoutConstraint.activate([
 
+            avatarImageView.widthAnchor.constraint(equalToConstant: avatarSize),
             avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: Paddings.page),
             avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Paddings.page),
-            avatarImageView.widthAnchor.constraint(equalToConstant: avatarSize),
             avatarImageView.heightAnchor.constraint(equalToConstant: avatarSize),
 
             fullNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: Paddings.page),
             fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: Paddings.page),
             fullNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Paddings.page),
 
-            statusLabel.bottomAnchor.constraint(equalTo: avatarImageView.topAnchor, constant: avatarSize / 2),
             statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: Paddings.page),
             statusLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Paddings.page),
+            statusLabel.bottomAnchor.constraint(equalTo: avatarImageView.topAnchor, constant: avatarSize / 2),
 
             statusTextField.heightAnchor.constraint(equalToConstant: 40),
-            statusTextField.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor),
             statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: Paddings.page),
             statusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Paddings.page),
+            statusTextField.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor),
 
             setStatusButton.heightAnchor.constraint(equalToConstant: 50),
             setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: Paddings.page),
             setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Paddings.page),
             setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Paddings.page),
             setStatusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Paddings.page),
+
+            buttonX.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: Paddings.page),
+            buttonX.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -Paddings.page),
+
         ])
     }
 
@@ -130,6 +157,45 @@ final class ProfileHeaderView: UIView {
     func changeTitle(text: String) {
         fullNameLabel.text = text
     }
+
+    @objc func avatarAnimation() {
+        avatarCenter = avatarImageView.center
+        avatarBounds = avatarImageView.bounds
+
+        UIView.animate(withDuration: 0.5) { [self] in
+            let screenW = UIScreen.main.bounds.width
+//            transparentView.alpha = 0.7
+            avatarImageView.layer.borderWidth = 0
+            avatarImageView.layer.cornerRadius = 0
+            avatarImageView.center.x = screenW / 2
+            avatarImageView.center.y = UIScreen.main.bounds.height / 2
+            avatarImageView.layer.bounds = CGRect(x: 0, y: 0, width: screenW, height: screenW)
+            tabBar?.isHidden = true
+
+        } completion: { _ in
+            UIView.animate(withDuration: 0.3, delay: 0.0) { [self] in
+                buttonX.alpha = 1
+            }
+        }
+    }
+
+    @objc func avatarReturn() {
+        UIView.animate(withDuration: 0.3) { [self] in
+            buttonX.alpha = 0
+        } completion: { _ in
+            UIView.animate(withDuration: 0.5) { [self] in
+//                transparentView.alpha = 0
+                avatarImageView.layer.borderWidth = avatarBorderWidth
+                avatarImageView.layer.cornerRadius = avatarSize / 2
+                avatarImageView.center = avatarCenter
+                avatarImageView.bounds = avatarBounds
+                tabBar?.isHidden = false
+                //            layoutIfNeeded()
+            }
+        }
+    }
+
+
 }
 
 extension ProfileHeaderView: UITextFieldDelegate {

@@ -27,6 +27,7 @@ enum Paddings {
 }
 
 let headerHeight = 220.0
+let avatarBorderWidth = 3.0
 
 let logoVKsize = (w: 100.0, h: 100.0)
 
@@ -53,4 +54,4 @@ var posts: [Post] = [
          views: 0),
 ]
 
-let photos = ["IMG_7536","1c","1s","2c","2s","3c","4c","5c","6c","7c","8c","8s","9c","10c","10s","11c","11s","12c","13c","14c","guest"]
+let photos = ["IMG_7536","1c","1s","2c","2s","3c","4c","5c","6c","7c","8c","gomerSimpsonMoning","9c","10c","10s","11c","11s","12c","13c","14c","guest"]

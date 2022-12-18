@@ -16,21 +16,35 @@ final class ProfileViewController: UIViewController {
         $0.dataSource = self
         $0.delegate = self
         $0.register(PostTableViewCell.self, forCellReuseIdentifier: postIdentifier)
-        $0.translatesAutoresizingMaskIntoConstraints = false
         $0.sectionFooterHeight = 0
+        $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UITableView(frame: .zero, style: .grouped)) // insetGrouped - красиво
+
+    private lazy var transparentView: UIView = {
+        $0.backgroundColor = .black
+        $0.alpha = 0
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIView())
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
-//        view.backgroundColor = .systemRed
+        view.addSubview(transparentView)
 
         NSLayoutConstraint.activate([
+
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+            transparentView.topAnchor.constraint(equalTo: view.topAnchor),
+            transparentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            transparentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            transparentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
         ])
     }
 
@@ -76,6 +90,8 @@ extension ProfileViewController: UITableViewDelegate {
     // ! 4. По тапу на ячейку должен быть осуществлен переход на экран "фото галереи"
     // а по тапу на фото откроем его
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.pushViewController(PhotosViewController(), animated: true)
+        if indexPath.section == 0 {
+            navigationController?.pushViewController(PhotosViewController(), animated: true)
+        }
     }
 }
