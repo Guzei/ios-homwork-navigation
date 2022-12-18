@@ -34,7 +34,6 @@ final class ProfileViewController: UIViewController {
 
         ])
         print("Как из этого извлечь заданное значение отступа сверху? tableView.topAnchor:", tableView.topAnchor)
-
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -76,8 +75,6 @@ extension ProfileViewController: UITableViewDelegate {
         section == 0 ? headerHeight : 0
     }
 
-    // ! 4. По тапу на ячейку должен быть осуществлен переход на экран "фото галереи"
-    // а по тапу на фото откроем его
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             navigationController?.pushViewController(PhotosViewController(), animated: true)

@@ -5,7 +5,6 @@
 //  Created by Igor Guzei on 07.12.2022.
 //
 
-
 import UIKit
 
 final class LogInViewController: UIViewController {
