@@ -18,7 +18,7 @@ final class InfoViewController: UIViewController {
         let button = UIButton(frame: CGRect(x: 100, y: 100, width: 200, height: 50))
         button.backgroundColor = .systemRed
         button.setTitle("See alert", for: .normal)
-        button.addTarget(self, action: #selector(press), for: .touchUpInside)           
+        button.addTarget(self, action: #selector(press), for: .touchUpInside)
         view.addSubview(button)
     }
 
@@ -32,10 +32,9 @@ final class InfoViewController: UIViewController {
         })
 
         alert.addAction(UIAlertAction(title: "No", style: .destructive) { _ in
-            NSLog("The \"No\" alert occured.")                                          
+            NSLog("The \"No\" alert occured.")
         })
 
         present(alert, animated: true, completion: nil)
     }
 }
-

@@ -5,7 +5,6 @@
 //  Created by Igor Guzei on 07.12.2022.
 //
 
-
 import UIKit
 
 final class LogInViewController: UIViewController {
@@ -83,7 +82,7 @@ final class LogInViewController: UIViewController {
         return $0
     }(UIButton())
 
-// MARK: - inits
+    // MARK: - inits
 
     override func viewDidLoad() {
         super.viewDidLoad()

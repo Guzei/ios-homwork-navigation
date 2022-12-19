@@ -12,4 +12,3 @@ struct Post {
     let author, image, description: String
     var likes, views: Int
 }
-

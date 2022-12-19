@@ -20,7 +20,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         self.window = window
 
-        print("Безопасный отступ свехру. window.safeAreaInsets.top", window.safeAreaInsets.top)
+        print("Безопасный отступ свехру.\n window.safeAreaInsets.top", window.safeAreaInsets.top)
     }
 }
-
