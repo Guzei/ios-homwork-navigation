@@ -68,13 +68,6 @@ final class ProfileHeaderView: UIView {
         return $0
     }(UIButton())
 
-    private lazy var statusText: String = ""
-    private lazy var avatarCenter = avatarImageView.center
-    private lazy var avatarBounds = avatarImageView.layer.bounds
-
-    // тянемся навех, чтобы иметь возможность выключить нижнюю панель навигации
-    private lazy var tabBar = ((superview as? UITableView)?.dataSource as? UIViewController)?.tabBarController?.tabBar
-
     private lazy var transparentView: UIView = {
         // компенсируем отступ свеху и не забываем про симметрию, чтобы центр остался на месте. Это же ничем не хуже, чем выковыривать индивидуальный отступ?
         let view = UIView(frame: CGRect(x: 0, y: -100, width: screenW, height: screenH + 100))
@@ -91,6 +84,12 @@ final class ProfileHeaderView: UIView {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIButton())
+
+    private lazy var statusText: String = ""
+    private lazy var tabBar = ((superview as? UITableView)?.dataSource as? UIViewController)?.tabBarController?.tabBar
+    private lazy var avatarCenter = avatarImageView.center
+    private lazy var avatarBounds = avatarImageView.layer.bounds
+
 
 
     // MARK: - implementation
@@ -196,8 +195,6 @@ final class ProfileHeaderView: UIView {
             }
         }
     }
-
-
 }
 
 extension ProfileHeaderView: UITextFieldDelegate {

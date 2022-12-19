@@ -82,7 +82,7 @@ final class LogInViewController: UIViewController {
         return $0
     }(UIButton())
 
-// MARK: - inits
+    // MARK: - inits
 
     override func viewDidLoad() {
         super.viewDidLoad()
