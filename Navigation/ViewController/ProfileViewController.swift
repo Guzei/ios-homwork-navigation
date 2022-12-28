@@ -33,7 +33,6 @@ final class ProfileViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
         ])
-        print("Как из этого извлечь заданное значение отступа сверху? tableView.topAnchor:", tableView.topAnchor)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -41,7 +40,6 @@ final class ProfileViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         navigationController?.tabBarController?.tabBar.isHidden = false
     }
-
 }
 
 extension ProfileViewController: UITableViewDataSource {

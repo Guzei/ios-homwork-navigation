@@ -20,6 +20,9 @@ final class PostViewController: UIViewController {
     }
 
     @objc func press() {
-        present(InfoViewController(), animated: true)
+        let vc = InfoViewController()
+        vc.modalPresentationStyle = .fullScreen
+        vc.modalTransitionStyle = .flipHorizontal
+        present(vc, animated: true)
     }
 }

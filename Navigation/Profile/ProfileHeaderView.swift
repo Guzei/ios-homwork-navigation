@@ -170,8 +170,8 @@ final class ProfileHeaderView: UIView {
             avatarImageView.layer.cornerRadius = 0
             avatarImageView.center = transparentView.center
             avatarImageView.layer.bounds = CGRect(x: 0, y: 0, width: screenW, height: screenW)
-            // tabBar?.isHidden = true          // так красивее. Правда? Ой, только где анимация?
-            tabBar?.frame.origin.y = screenH    // Нашёл! А так ещё красивее :)
+            tabBar?.frame.origin.y = screenH
+//            tabBar?.alpha = 0.0
         } completion: { _ in
             UIView.animate(withDuration: 0.3, delay: 0.0) { [self] in
                 buttonX.alpha = 1
@@ -191,6 +191,7 @@ final class ProfileHeaderView: UIView {
                 avatarImageView.bounds = avatarBounds
                 if let bar = tabBar {
                     bar.frame.origin.y = screenH - bar.frame.height
+//                    bar.alpha = 1.0
                 }
             }
         }
