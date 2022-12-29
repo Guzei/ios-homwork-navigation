@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class LogInViewController: UIViewController {
+final class LogInViewController: UIViewController, UITextFieldDelegate {
 
     private lazy var scrollView: UIScrollView = {
         $0.backgroundColor = .white
@@ -40,32 +40,53 @@ final class LogInViewController: UIViewController {
         return $0
     }(UIStackView())
 
+    private lazy var errorLoginLabel: UILabel = {
+        $0.isHidden = true
+        $0.text = "not e-mail "
+        $0.textColor = .systemRed
+        return $0
+    }(UILabel())
+
     private lazy var loginField: UITextField = {
         $0.placeholder = "Email or phone"
-        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: Paddings.page, height: 0))
-        $0.leftViewMode = .always
         $0.layer.borderColor = UIColor.lightGray.cgColor
         $0.layer.borderWidth = 0.5
         $0.backgroundColor = .systemGray6
+        $0.autocapitalizationType = .none
+        $0.delegate = self
+        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: Paddings.page, height: 0))
+        $0.leftViewMode = .always
+        $0.rightView = .some(errorLoginLabel)
+        $0.rightViewMode = .always
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UITextField())
 
+    private lazy var errorPasswowdLabel: UILabel = {
+        $0.isHidden = true
+//        $0.text = "Min 4 "
+        $0.textColor = .systemRed
+        return $0
+    }(UILabel())
+
     private lazy var passwordField: UITextField = {
         $0.placeholder = "Password"
-        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: Paddings.page, height: 0))
-        $0.leftViewMode = .always
         $0.isSecureTextEntry = true
         $0.autocapitalizationType = .none
         $0.backgroundColor = .systemGray6
         $0.textColor = .black
         $0.font = .systemFont(ofSize: 16)
         $0.tintColor = UIColor(named: "colorVK")
+        $0.delegate = self
+        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: Paddings.page, height: 0))
+        $0.leftViewMode = .always
+        $0.rightView = .some(errorPasswowdLabel)
+        $0.rightViewMode = .always
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UITextField())
 
-    private lazy var button: UIButton = {
+    private lazy var loginButton: UIButton = {
         $0.setTitle("Login", for: .normal)
         if let img = UIImage(named: "pixelVK") {
             $0.setBackgroundImage(img, for: .normal)
@@ -78,13 +99,97 @@ final class LogInViewController: UIViewController {
         $0.clipsToBounds = true
         $0.alpha = ($0.isSelected || $0.isHighlighted ) ? 0.8 : 1.0
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.addTarget(self, action: #selector(pressButton), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(pressLoginButton), for: .touchUpInside)
         return $0
     }(UIButton())
 
-    // MARK: - inits
+    @objc func pressLoginButton() {
+        print(#fileID, #function)
+
+        var login = ""
+        var password = ""
+
+        do {
+            login = try checkLoginField(loginField.text!)
+            errorLoginLabel.isHidden = true
+            password = try checkPasswordField(passwordField.text!)
+            errorPasswowdLabel.isHidden = true
+
+            if login != "11@11.zz" {
+                let alert = UIAlertController(title: "Alert!", message: "Login is wrong (11@11.zz)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "🫢", style: .cancel ))
+                present(alert, animated: true, completion: nil)
+            }
+            if password != "1111" {
+                let alert = UIAlertController(title: "Alert!", message: "Passwoed is wrong (1111)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "🧐", style: .cancel ))
+                present(alert, animated: true, completion: nil)
+            }
+
+            navigationController?.pushViewController(ProfileViewController(), animated: true)
+
+        } catch errors.loginEmpty {
+//            errorLoginLabel.isHidden = false
+            bc(loginField)
+        } catch errors.passwordEmpty {
+            bc(passwordField)
+        } catch errors.notEmail {
+            errorLoginLabel.isHidden = false
+            loginField.shake2()
+        } catch errors.password(let i) {
+            errorPasswowdLabel.text = "min " + String(passwordLengthMin) + ", iserted " + String(i) + " "
+            errorPasswowdLabel.isHidden = false
+            passwordField.shake2()
+        } catch {
+            print("Error: ?")
+        }
+    }
+
+
+
+//    internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+//        print(#fileID, #function)
+//        textField.backgroundColor = .systemGray6
+//        loginButton.alpha = 1
+//        return true
+//    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print(#fileID, #function)
+//        view.endEditing(true)
+        pressLoginButton()
+        return false
+    }
+
+    // Before resigning as first responder, the text field calls its delegate’s textFieldShouldEndEditing(_:) method.
+    // Use that method to validate the current text.
+//    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+//        print(#fileID, #function)
+//
+//        // проблемы:
+//        // 1) похоже, что поля отличаются друг от друга только по placeholder или не сумел найти иначе
+//        // 2) результаты обработки полей надо запоминать в разные переменные
+//
+//        do {
+//            print(textField.placeholder ?? "-")
+//            let string = trim(textField.text!)
+//            let login = try checkLoginField(textField.text!)
+//            print(login)
+//            return true
+//        } catch errors.fieldIsEmpty {
+//            bc(textField)
+//        } catch errors.notEmail {
+//            errorPasswowdLabel.text = "not e-mail"
+//            errorLoginLabel.isHidden = false
+//            loginField.shake2()
+//        } catch {
+//            print("Error ???")
+//        }
+//        return false
+//    }
 
     override func viewDidLoad() {
+        print(#fileID, #function)
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
         view.backgroundColor = .white
@@ -97,7 +202,7 @@ final class LogInViewController: UIViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(logoVK)
-        contentView.addSubview(button)
+        contentView.addSubview(loginButton)
         contentView.addSubview(loginForm)
         loginForm.addArrangedSubview(loginField)
         loginForm.addArrangedSubview(passwordField)
@@ -137,20 +242,13 @@ final class LogInViewController: UIViewController {
             passwordField.trailingAnchor.constraint(equalTo: loginForm.trailingAnchor),
             passwordField.heightAnchor.constraint(equalToConstant: 50),
 
-            button.topAnchor.constraint(equalTo: loginForm.bottomAnchor, constant: Paddings.page),
-            button.leadingAnchor.constraint(equalTo: loginForm.leadingAnchor),
-            button.trailingAnchor.constraint(equalTo: loginForm.trailingAnchor),
-            button.heightAnchor.constraint(equalToConstant: 50),
+            loginButton.topAnchor.constraint(equalTo: loginForm.bottomAnchor, constant: Paddings.page),
+            loginButton.leadingAnchor.constraint(equalTo: loginForm.leadingAnchor),
+            loginButton.trailingAnchor.constraint(equalTo: loginForm.trailingAnchor),
+            loginButton.heightAnchor.constraint(equalToConstant: 50),
 
-            button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            loginButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
-    }
-
-    // MARK: - methods
-
-    @objc func pressButton() {
-        let vcProfile = ProfileViewController()
-        navigationController?.pushViewController(vcProfile, animated: true)
     }
 
     override func viewWillAppear(_ animated: Bool) {
