@@ -22,7 +22,7 @@ class PhotosViewController: UIViewController {
     }()
 
     private let transparentView: UIView = {
-        $0.backgroundColor = .black.withAlphaComponent(0)
+        $0.backgroundColor = .black
         $0.alpha = 0
         return $0
     }(UIView())
