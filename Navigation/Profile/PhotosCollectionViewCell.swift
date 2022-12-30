@@ -18,7 +18,6 @@ final class PhotosCollectionViewCell: UICollectionViewCell {
     }(UIImageView())
 
     override init(frame: CGRect) {
-//        print(frame)
         super.init(frame: .zero)
         contentView.backgroundColor = BackgroundColors.postCell
         addSubviews()

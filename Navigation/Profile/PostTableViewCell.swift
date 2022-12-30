@@ -18,14 +18,12 @@ final class PostTableViewCell: UITableViewCell {
         $0.font = .boldSystemFont(ofSize: 20)
         $0.textColor = .black
         $0.numberOfLines = 2
-        $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
 
     private lazy var cellImage: UIImageView = {
         $0.backgroundColor = BackgroundColors.img
         $0.contentMode = .scaleAspectFit
-        $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
 
@@ -33,7 +31,6 @@ final class PostTableViewCell: UITableViewCell {
         $0.font = .systemFont(ofSize: 14)
         $0.textColor = .systemGray
         $0.numberOfLines = 0
-        $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
     
@@ -42,19 +39,12 @@ final class PostTableViewCell: UITableViewCell {
         $0.textColor = .black
         $0.isUserInteractionEnabled = true
         $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(likePlus)))
-        $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
-
-    @objc func likePlus(){
-        posts[cellIndex].likes += 1
-        (superview as? UITableView)?.reloadRows(at: [IndexPath(row: cellIndex, section: 1)], with: .none)
-    }
 
     private lazy var cellViews: UILabel = {
         $0.font = .systemFont(ofSize: 16)
         $0.textColor = .black
-        $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
 
@@ -69,12 +59,18 @@ final class PostTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    @objc func likePlus(){
+        posts[cellIndex].likes += 1
+        (superview as? UITableView)?.reloadRows(at: [IndexPath(row: cellIndex, section: 1)], with: .none)
+    }
+
     private func addSubviews() {
         contentView.addSubview(cellAuthor)
         contentView.addSubview(cellImage)
         contentView.addSubview(cellDescription)
         contentView.addSubview(cellLikes)
         contentView.addSubview(cellViews)
+        contentView.subviews.forEach{ $0.translatesAutoresizingMaskIntoConstraints = false }
     }
 
     private func setConstraints() {
