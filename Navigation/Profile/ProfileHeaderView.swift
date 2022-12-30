@@ -20,11 +20,10 @@ final class ProfileHeaderView: UIView {
         $0.layer.borderWidth = avatarBorderWidth
         $0.layer.borderColor = UIColor.white.cgColor
         $0.isUserInteractionEnabled = true
-        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(avatarAnimation)))       // Yes
-//      $0.addTarget(self, action: #selector(avatarAnimation), for: .touchUpInside)                             // No
-        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(avatarAnimation)))
         return $0
     }(UIImageView())
+
     @objc func avatarAnimation() {
         avatarCenter = avatarImageView.center
         avatarBounds = avatarImageView.bounds
@@ -35,8 +34,7 @@ final class ProfileHeaderView: UIView {
             avatarImageView.layer.cornerRadius = 0
             avatarImageView.center = transparentView.center
             avatarImageView.layer.bounds = CGRect(x: 0, y: 0, width: screenW, height: screenW)
-            tabBar?.frame.origin.y = screenH
-//            tabBar?.alpha = 0.0
+            tabBar?.frame.origin.y = screenH    // Вариант анимации: tabBar?.alpha = 0.0
         } completion: { _ in
             UIView.animate(withDuration: 0.3, delay: 0.0) { [self] in
                 buttonX.alpha = 1
@@ -47,7 +45,6 @@ final class ProfileHeaderView: UIView {
     private lazy var fullNameLabel: UILabel = {
         $0.text = "Gomer"
         $0.font = .boldSystemFont(ofSize: 18)
-        $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
 
@@ -55,7 +52,6 @@ final class ProfileHeaderView: UIView {
         $0.text = "— Moning!"
         $0.font = .systemFont(ofSize: 14)
         $0.textColor = .gray
-        $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
 
@@ -69,14 +65,8 @@ final class ProfileHeaderView: UIView {
         $0.leftViewMode = .always
         $0.delegate = self
         $0.clearButtonMode = .whileEditing
-//        $0.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
-        $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UITextField())
-//
-//    @objc func statusTextChanged() {
-//        statusText = statusTextField.text ?? "not input new status yet"
-//    }
 
     private lazy var setStatusButton: UIButton = {
         $0.setTitle("Set status", for: .normal)
@@ -86,10 +76,10 @@ final class ProfileHeaderView: UIView {
         $0.layer.shadowRadius = 4
         $0.layer.shadowColor = UIColor.black.cgColor
         $0.layer.shadowOpacity = 0.7
-        $0.translatesAutoresizingMaskIntoConstraints = false
         $0.addTarget(self, action: #selector(setStatus), for: .touchUpInside)
         return $0
     }(UIButton())
+
     @objc func setStatus() {
         do {
             let status = try checkStatusField(statusTextField.text!)
@@ -118,6 +108,7 @@ final class ProfileHeaderView: UIView {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIButton())
+    
     @objc func avatarReturn() {
         UIView.animate(withDuration: 0.3) { [self] in
             buttonX.alpha = 0
@@ -129,8 +120,7 @@ final class ProfileHeaderView: UIView {
                 avatarImageView.center = avatarCenter
                 avatarImageView.bounds = avatarBounds
                 if let bar = tabBar {
-                    bar.frame.origin.y = screenH - bar.frame.height
-//                    bar.alpha = 1.0
+                    bar.frame.origin.y = screenH - bar.frame.height  // Вариант анимации bar.alpha = 1.0
                 }
             }
         }
@@ -156,6 +146,7 @@ final class ProfileHeaderView: UIView {
     }
 
     private func addSubviews() {
+
         addSubview(fullNameLabel)
         addSubview(statusLabel)
         addSubview(statusTextField)
@@ -163,6 +154,10 @@ final class ProfileHeaderView: UIView {
         addSubview(transparentView)
         addSubview(avatarImageView)
         addSubview(buttonX)
+
+        subviews.forEach{
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
 
     private func setConstraints() {
