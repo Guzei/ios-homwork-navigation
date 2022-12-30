@@ -10,6 +10,7 @@ import UIKit
 final class TabBarController: UITabBarController {
 
     let vcFeed = FeedViewController()
+    let vcProfile = ProfileViewController()
     let vcLogin = LogInViewController()
 
     override func viewDidLoad() {
@@ -26,12 +27,19 @@ final class TabBarController: UITabBarController {
 
         let ncProfile: UINavigationController = {
             let feed = UINavigationController()
+            feed.setViewControllers([vcProfile], animated: true)
+            feed.tabBarItem = UITabBarItem(title: "Test", image: UIImage(systemName: "person.text.rectangle"), tag: 0)
+            return feed
+        }()
+
+        let ncLogin: UINavigationController = {
+            let feed = UINavigationController()
             feed.setViewControllers([vcLogin], animated: true)
             feed.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.text.rectangle"), tag: 0)
             return feed
         }()
 
-        viewControllers = [ncFeed, ncProfile]
+        viewControllers = [ncFeed, ncProfile, ncLogin]
         selectedIndex = 1
     }
 }

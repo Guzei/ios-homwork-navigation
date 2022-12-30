@@ -11,13 +11,14 @@ import UIKit
 enum errors: Error {
     case loginEmpty
     case passwordEmpty
+    case statusEmpty
     case notEmail
     case password(Int)
 }
 
-public func trim(_ testString: String) -> String {
+private func trim(_ testString: String) -> String {
     print(#fileID, #function)
-    if let string = testString.firstMatch(of: /^\s*(\S?.*\S?)\s*$/) {
+    if let string = testString.firstMatch(of: /^\s*(.*\S)\s*$/) {
         return String(string.1)
     } else {
         print("Error")                                                              // TODO: обработка ошибки. Хотя вроде быть не должно.
@@ -25,11 +26,11 @@ public func trim(_ testString: String) -> String {
     }
 }
 
-public func checkEmail(_ testString: String) -> Bool {
+private func checkEmail(_ testString: String) -> Bool {
     testString.firstMatch(of: /^[a-z0-9][-._a-z0-9]{0,20}@[a-z0-9][-.a-z0-9]{0,30}[a-z0-9].[a-z]{2,8}$/.ignoresCase()) != nil
 }
 
-public func checkPassword(_ testString: String) -> Bool {
+private func checkPassword(_ testString: String) -> Bool {
     testString.count >= passwordLengthMin
 }
 
@@ -41,10 +42,16 @@ public func checkLoginField(_ testString: String) throws -> String {
     return login                                                                    // возможно произошла очистка от случайных ведущих пробелов
 }
 
-public func checkPasswordField(_ testString: String) throws -> String {
+public func checkPasswordField(_ testString: String) throws -> Bool {               // а пароль, предположим, может имеать ведущие пробелы
     print(#fileID, #function)
-    let password = trim(testString)
-    guard !password.isEmpty       else { throw errors.passwordEmpty }
-    guard checkPassword(password) else { throw errors.password(password.count) }
-    return password
+    guard !testString.isEmpty       else { throw errors.passwordEmpty }
+    guard checkPassword(testString) else { throw errors.password(testString.count) }
+    return true
+}
+
+public func checkStatusField(_ testString: String) throws -> String {
+    print(#fileID, #function)
+    let status = trim(testString)
+    guard !status.isEmpty else { throw errors.statusEmpty}
+    return status
 }

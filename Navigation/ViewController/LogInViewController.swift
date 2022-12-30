@@ -64,7 +64,6 @@ final class LogInViewController: UIViewController, UITextFieldDelegate {
 
     private lazy var errorPasswowdLabel: UILabel = {
         $0.isHidden = true
-//        $0.text = "Min 4 "
         $0.textColor = .systemRed
         return $0
     }(UILabel())
@@ -106,13 +105,11 @@ final class LogInViewController: UIViewController, UITextFieldDelegate {
     @objc func pressLoginButton() {
         print(#fileID, #function)
 
-        var login = ""
-        var password = ""
-
         do {
-            login = try checkLoginField(loginField.text!)
+            let login = try checkLoginField(loginField.text!)
             errorLoginLabel.isHidden = true
-            password = try checkPasswordField(passwordField.text!)
+            loginField.text = login
+            _ = try checkPasswordField(passwordField.text!)
             errorPasswowdLabel.isHidden = true
 
             if login != "11@11.zz" {
@@ -120,8 +117,8 @@ final class LogInViewController: UIViewController, UITextFieldDelegate {
                 alert.addAction(UIAlertAction(title: "🫢", style: .cancel ))
                 present(alert, animated: true, completion: nil)
             }
-            if password != "1111" {
-                let alert = UIAlertController(title: "Alert!", message: "Passwoed is wrong (1111)", preferredStyle: .alert)
+            if passwordField.text! != "1111" {
+                let alert = UIAlertController(title: "Alert!", message: "Password is wrong (1111)", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "🧐", style: .cancel ))
                 present(alert, animated: true, completion: nil)
             }
@@ -129,13 +126,12 @@ final class LogInViewController: UIViewController, UITextFieldDelegate {
             navigationController?.pushViewController(ProfileViewController(), animated: true)
 
         } catch errors.loginEmpty {
-//            errorLoginLabel.isHidden = false
-            bc(loginField)
+            backgroundErrorAnimation(loginField)
         } catch errors.passwordEmpty {
-            bc(passwordField)
+            backgroundErrorAnimation(passwordField)
         } catch errors.notEmail {
             errorLoginLabel.isHidden = false
-            loginField.shake2()
+            loginField.shake1()
         } catch errors.password(let i) {
             errorPasswowdLabel.text = "min " + String(passwordLengthMin) + ", iserted " + String(i) + " "
             errorPasswowdLabel.isHidden = false
@@ -144,8 +140,6 @@ final class LogInViewController: UIViewController, UITextFieldDelegate {
             print("Error: ?")
         }
     }
-
-
 
 //    internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
 //        print(#fileID, #function)
@@ -177,7 +171,7 @@ final class LogInViewController: UIViewController, UITextFieldDelegate {
 //            print(login)
 //            return true
 //        } catch errors.fieldIsEmpty {
-//            bc(textField)
+//            backgroundErrorAnimation(textField)
 //        } catch errors.notEmail {
 //            errorPasswowdLabel.text = "not e-mail"
 //            errorLoginLabel.isHidden = false

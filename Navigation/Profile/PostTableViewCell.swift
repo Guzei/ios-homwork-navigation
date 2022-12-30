@@ -12,6 +12,8 @@ import UIKit
 
 final class PostTableViewCell: UITableViewCell {
 
+    var cellIndex = 0
+
     private lazy var cellAuthor: UILabel = {
         $0.font = .boldSystemFont(ofSize: 20)
         $0.textColor = .black
@@ -38,9 +40,16 @@ final class PostTableViewCell: UITableViewCell {
     private lazy var cellLikes: UILabel = {
         $0.font = .systemFont(ofSize: 16)
         $0.textColor = .black
+        $0.isUserInteractionEnabled = true
+        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(likePlus)))
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
+
+    @objc func likePlus(){
+        posts[cellIndex].likes += 1
+        (superview as? UITableView)?.reloadRows(at: [IndexPath(row: cellIndex, section: 1)], with: .none)
+    }
 
     private lazy var cellViews: UILabel = {
         $0.font = .systemFont(ofSize: 16)
@@ -93,12 +102,14 @@ final class PostTableViewCell: UITableViewCell {
         ])
     }
 
-    func config(post: Post) {
+    func config(_ index: Int) {
 
-        cellAuthor.text = post.author
-        cellImage.image = UIImage(named: post.image)
-        cellDescription.text = post.description
-        cellLikes.text = "Likes: \(post.likes)"
-        cellViews.text = "Views: \(post.views)"
+        cellIndex = index
+
+        cellAuthor.text = posts[index].author
+        cellImage.image = UIImage(named: posts[index].image)
+        cellDescription.text = posts[index].description
+        cellLikes.text = "Likes: \(posts[index].likes)"
+        cellViews.text = "Views: \(posts[index].views)"
     }
 }

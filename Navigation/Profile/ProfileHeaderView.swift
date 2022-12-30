@@ -20,10 +20,29 @@ final class ProfileHeaderView: UIView {
         $0.layer.borderWidth = avatarBorderWidth
         $0.layer.borderColor = UIColor.white.cgColor
         $0.isUserInteractionEnabled = true
-        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(avatarAnimation)))
+        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(avatarAnimation)))       // Yes
+//      $0.addTarget(self, action: #selector(avatarAnimation), for: .touchUpInside)                             // No
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
+    @objc func avatarAnimation() {
+        avatarCenter = avatarImageView.center
+        avatarBounds = avatarImageView.bounds
+
+        UIView.animate(withDuration: 0.5) { [self] in
+            transparentView.alpha = 0.7
+            avatarImageView.layer.borderWidth = 0
+            avatarImageView.layer.cornerRadius = 0
+            avatarImageView.center = transparentView.center
+            avatarImageView.layer.bounds = CGRect(x: 0, y: 0, width: screenW, height: screenW)
+            tabBar?.frame.origin.y = screenH
+//            tabBar?.alpha = 0.0
+        } completion: { _ in
+            UIView.animate(withDuration: 0.3, delay: 0.0) { [self] in
+                buttonX.alpha = 1
+            }
+        }
+    }
 
     private lazy var fullNameLabel: UILabel = {
         $0.text = "Gomer"
@@ -50,10 +69,14 @@ final class ProfileHeaderView: UIView {
         $0.leftViewMode = .always
         $0.delegate = self
         $0.clearButtonMode = .whileEditing
-        $0.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
+//        $0.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UITextField())
+//
+//    @objc func statusTextChanged() {
+//        statusText = statusTextField.text ?? "not input new status yet"
+//    }
 
     private lazy var setStatusButton: UIButton = {
         $0.setTitle("Set status", for: .normal)
@@ -64,9 +87,20 @@ final class ProfileHeaderView: UIView {
         $0.layer.shadowColor = UIColor.black.cgColor
         $0.layer.shadowOpacity = 0.7
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(setStatus), for: .touchUpInside)
         return $0
     }(UIButton())
+    @objc func setStatus() {
+        do {
+            let status = try checkStatusField(statusTextField.text!)
+            statusLabel.text = status
+            statusTextField.text = status
+        } catch errors.statusEmpty {
+            backgroundErrorAnimation(statusTextField)
+        } catch {
+            print("Error ?")
+        }
+    }
 
     private lazy var transparentView: UIView = {
         // компенсируем отступ свеху и не забываем про симметрию, чтобы центр остался на месте. Это же ничем не хуже, чем выковыривать индивидуальный отступ?
@@ -84,6 +118,23 @@ final class ProfileHeaderView: UIView {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIButton())
+    @objc func avatarReturn() {
+        UIView.animate(withDuration: 0.3) { [self] in
+            buttonX.alpha = 0
+        } completion: { _ in
+            UIView.animate(withDuration: 0.5) { [self] in
+                transparentView.alpha = 0
+                avatarImageView.layer.borderWidth = avatarBorderWidth
+                avatarImageView.layer.cornerRadius = avatarSize / 2
+                avatarImageView.center = avatarCenter
+                avatarImageView.bounds = avatarBounds
+                if let bar = tabBar {
+                    bar.frame.origin.y = screenH - bar.frame.height
+//                    bar.alpha = 1.0
+                }
+            }
+        }
+    }
 
     private lazy var statusText: String = ""
     private lazy var tabBar = ((superview as? UITableView)?.dataSource as? UIViewController)?.tabBarController?.tabBar
@@ -147,54 +198,8 @@ final class ProfileHeaderView: UIView {
         ])
     }
 
-    // вместо принудительной очистки поставил "крестик" очистки
-    @objc func buttonPressed() {
-        statusLabel.text = statusText
-    }
-
-    @objc func statusTextChanged() {
-        statusText = statusTextField.text ?? "not input new status yet"
-    }
-
     func changeTitle(text: String) {
         fullNameLabel.text = text
-    }
-
-    @objc func avatarAnimation() {
-        avatarCenter = avatarImageView.center
-        avatarBounds = avatarImageView.bounds
-
-        UIView.animate(withDuration: 0.5) { [self] in
-            transparentView.alpha = 0.7
-            avatarImageView.layer.borderWidth = 0
-            avatarImageView.layer.cornerRadius = 0
-            avatarImageView.center = transparentView.center
-            avatarImageView.layer.bounds = CGRect(x: 0, y: 0, width: screenW, height: screenW)
-            tabBar?.frame.origin.y = screenH
-//            tabBar?.alpha = 0.0
-        } completion: { _ in
-            UIView.animate(withDuration: 0.3, delay: 0.0) { [self] in
-                buttonX.alpha = 1
-            }
-        }
-    }
-
-    @objc func avatarReturn() {
-        UIView.animate(withDuration: 0.3) { [self] in
-            buttonX.alpha = 0
-        } completion: { _ in
-            UIView.animate(withDuration: 0.5) { [self] in
-                transparentView.alpha = 0
-                avatarImageView.layer.borderWidth = avatarBorderWidth
-                avatarImageView.layer.cornerRadius = avatarSize / 2
-                avatarImageView.center = avatarCenter
-                avatarImageView.bounds = avatarBounds
-                if let bar = tabBar {
-                    bar.frame.origin.y = screenH - bar.frame.height
-//                    bar.alpha = 1.0
-                }
-            }
-        }
     }
 }
 

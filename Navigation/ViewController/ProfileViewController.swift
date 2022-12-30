@@ -57,7 +57,7 @@ extension ProfileViewController: UITableViewDataSource {
             return PhotosTableViewCell()
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: postIdentifier, for: indexPath) as? PostTableViewCell else { fatalError() }
-            cell.config(post: posts[indexPath.row])
+            cell.config(indexPath.row)
             return cell
         }
     }
