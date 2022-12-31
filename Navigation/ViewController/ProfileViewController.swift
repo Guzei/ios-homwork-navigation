@@ -71,6 +71,7 @@ extension ProfileViewController: UITableViewDataSource {
         posts.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
         tableView.endUpdates()
+        tableView.reloadData()
     }
 }
 
