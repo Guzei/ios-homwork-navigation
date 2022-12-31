@@ -9,8 +9,6 @@ import UIKit
 
 final class ProfileHeaderView: UIView {
 
-    // MARK: - variable declaration
-
     private lazy var avatarSize = CGFloat(headerHeight - 3 * Paddings.page - 50.0)
 
     private lazy var avatarImageView: UIImageView = {
@@ -23,24 +21,6 @@ final class ProfileHeaderView: UIView {
         $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(avatarAnimation)))
         return $0
     }(UIImageView())
-
-    @objc func avatarAnimation() {
-        avatarCenter = avatarImageView.center
-        avatarBounds = avatarImageView.bounds
-
-        UIView.animate(withDuration: 0.5) { [self] in
-            transparentView.alpha = 0.7
-            avatarImageView.layer.borderWidth = 0
-            avatarImageView.layer.cornerRadius = 0
-            avatarImageView.center = transparentView.center
-            avatarImageView.layer.bounds = CGRect(x: 0, y: 0, width: screenW, height: screenW)
-            tabBar?.frame.origin.y = screenH    // Вариант анимации: tabBar?.alpha = 0.0
-        } completion: { _ in
-            UIView.animate(withDuration: 0.3, delay: 0.0) { [self] in
-                buttonX.alpha = 1
-            }
-        }
-    }
 
     private lazy var fullNameLabel: UILabel = {
         $0.text = "Gomer"
@@ -80,18 +60,6 @@ final class ProfileHeaderView: UIView {
         return $0
     }(UIButton())
 
-    @objc func setStatus() {
-        do {
-            let status = try checkStatusField(statusTextField.text!)
-            statusLabel.text = status
-            statusTextField.text = status
-        } catch errors.statusEmpty {
-            backgroundErrorAnimation(statusTextField)
-        } catch {
-            print("Error ?")
-        }
-    }
-
     private lazy var transparentView: UIView = {
         // компенсируем отступ свеху и не забываем про симметрию, чтобы центр остался на месте. Это же ничем не хуже, чем выковыривать индивидуальный отступ?
         let view = UIView(frame: CGRect(x: 0, y: -100, width: screenW, height: screenH + 100))
@@ -108,32 +76,11 @@ final class ProfileHeaderView: UIView {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIButton())
-    
-    @objc func avatarReturn() {
-        UIView.animate(withDuration: 0.3) { [self] in
-            buttonX.alpha = 0
-        } completion: { _ in
-            UIView.animate(withDuration: 0.5) { [self] in
-                transparentView.alpha = 0
-                avatarImageView.layer.borderWidth = avatarBorderWidth
-                avatarImageView.layer.cornerRadius = avatarSize / 2
-                avatarImageView.center = avatarCenter
-                avatarImageView.bounds = avatarBounds
-                if let bar = tabBar {
-                    bar.frame.origin.y = screenH - bar.frame.height  // Вариант анимации bar.alpha = 1.0
-                }
-            }
-        }
-    }
 
     private lazy var statusText: String = ""
     private lazy var tabBar = ((superview as? UITableView)?.dataSource as? UIViewController)?.tabBarController?.tabBar
     private lazy var avatarCenter = avatarImageView.center
     private lazy var avatarBounds = avatarImageView.layer.bounds
-
-
-
-    // MARK: - implementation
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -154,10 +101,7 @@ final class ProfileHeaderView: UIView {
         addSubview(transparentView)
         addSubview(avatarImageView)
         addSubview(buttonX)
-
-        subviews.forEach{
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
+        subviews.forEach{ $0.translatesAutoresizingMaskIntoConstraints = false }
     }
 
     private func setConstraints() {
@@ -196,11 +140,57 @@ final class ProfileHeaderView: UIView {
     func changeTitle(text: String) {
         fullNameLabel.text = text
     }
+
+    @objc func avatarAnimation() {
+        avatarCenter = avatarImageView.center
+        avatarBounds = avatarImageView.bounds
+
+        UIView.animate(withDuration: 0.5) { [self] in
+            transparentView.alpha = 0.7
+            avatarImageView.layer.borderWidth = 0
+            avatarImageView.layer.cornerRadius = 0
+            avatarImageView.center = transparentView.center
+            avatarImageView.layer.bounds = CGRect(x: 0, y: 0, width: screenW, height: screenW)
+            tabBar?.frame.origin.y = screenH    // Вариант анимации: tabBar?.alpha = 0.0
+        } completion: { _ in
+            UIView.animate(withDuration: 0.3, delay: 0.0) { [self] in
+                buttonX.alpha = 1
+            }
+        }
+    }
+
+    @objc func avatarReturn() {
+        UIView.animate(withDuration: 0.3) { [self] in
+            buttonX.alpha = 0
+        } completion: { _ in
+            UIView.animate(withDuration: 0.5) { [self] in
+                transparentView.alpha = 0
+                avatarImageView.layer.borderWidth = avatarBorderWidth
+                avatarImageView.layer.cornerRadius = avatarSize / 2
+                avatarImageView.center = avatarCenter
+                avatarImageView.bounds = avatarBounds
+                if let bar = tabBar {
+                    bar.frame.origin.y = screenH - bar.frame.height  // Вариант анимации bar.alpha = 1.0
+                }
+            }
+        }
+    }
+
+    @objc func setStatus() {
+        do {
+            let status = try checkStatusField(statusTextField.text!)
+            statusLabel.text = status
+            statusTextField.text = status
+        } catch errors.statusEmpty {
+            backgroundErrorAnimation(statusTextField)
+        } catch {
+            print("Error ?")
+        }
+    }
 }
 
 extension ProfileHeaderView: UITextFieldDelegate {
 
-    // ввод по Enter. Было в лекции.
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         statusLabel.text = statusText
         return false

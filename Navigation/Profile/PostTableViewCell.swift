@@ -4,9 +4,6 @@
 //
 //  Created by Igor Guzei on 08.12.2022.
 //
-//
-// MARK: - Configuration cell -
-//
 
 import UIKit
 
@@ -115,8 +112,6 @@ final class PostTableViewCell: UITableViewCell {
     }
 
     func config(_ index: Int, _ depth: Bool = true) {
-
-        print("index:", index, depth)
 
         cellIndex = index
 

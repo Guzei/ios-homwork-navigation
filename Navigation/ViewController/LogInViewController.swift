@@ -103,8 +103,6 @@ final class LogInViewController: UIViewController, UITextFieldDelegate {
     }(UIButton())
 
     @objc func pressLoginButton() {
-        print(#fileID, #function)
-
         do {
             let login = try checkLoginField(loginField.text!)
             errorLoginLabel.isHidden = true
@@ -141,49 +139,12 @@ final class LogInViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
-//    internal func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-//        print(#fileID, #function)
-//        textField.backgroundColor = .systemGray6
-//        loginButton.alpha = 1
-//        return true
-//    }
-
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        print(#fileID, #function)
-//        view.endEditing(true)
         pressLoginButton()
         return false
     }
 
-    // Before resigning as first responder, the text field calls its delegate’s textFieldShouldEndEditing(_:) method.
-    // Use that method to validate the current text.
-//    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-//        print(#fileID, #function)
-//
-//        // проблемы:
-//        // 1) похоже, что поля отличаются друг от друга только по placeholder или не сумел найти иначе
-//        // 2) результаты обработки полей надо запоминать в разные переменные
-//
-//        do {
-//            print(textField.placeholder ?? "-")
-//            let string = trim(textField.text!)
-//            let login = try checkLoginField(textField.text!)
-//            print(login)
-//            return true
-//        } catch errors.fieldIsEmpty {
-//            backgroundErrorAnimation(textField)
-//        } catch errors.notEmail {
-//            errorPasswowdLabel.text = "not e-mail"
-//            errorLoginLabel.isHidden = false
-//            loginField.shake2()
-//        } catch {
-//            print("Error ???")
-//        }
-//        return false
-//    }
-
     override func viewDidLoad() {
-        print(#fileID, #function)
         super.viewDidLoad()
         navigationController?.navigationBar.isHidden = true
         view.backgroundColor = .white

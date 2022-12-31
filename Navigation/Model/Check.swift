@@ -17,11 +17,9 @@ enum errors: Error {
 }
 
 private func trim(_ testString: String) -> String {
-    print(#fileID, #function)
     if let string = testString.firstMatch(of: /^\s*(.*\S)\s*$/) {
         return String(string.1)
     } else {
-        print("Error")                                                              // TODO: обработка ошибки. Хотя вроде быть не должно.
         return ""
     }
 }
@@ -35,7 +33,6 @@ private func checkPassword(_ testString: String) -> Bool {
 }
 
 public func checkLoginField(_ testString: String) throws -> String {
-    print(#fileID, #function)
     let login = trim(testString)
     guard !login.isEmpty      else { throw errors.loginEmpty }
     guard checkEmail(login)   else { throw errors.notEmail}
@@ -43,14 +40,12 @@ public func checkLoginField(_ testString: String) throws -> String {
 }
 
 public func checkPasswordField(_ testString: String) throws -> Bool {               // а пароль, предположим, может имеать ведущие пробелы
-    print(#fileID, #function)
     guard !testString.isEmpty       else { throw errors.passwordEmpty }
     guard checkPassword(testString) else { throw errors.password(testString.count) }
     return true
 }
 
 public func checkStatusField(_ testString: String) throws -> String {
-    print(#fileID, #function)
     let status = trim(testString)
     guard !status.isEmpty else { throw errors.statusEmpty}
     return status
