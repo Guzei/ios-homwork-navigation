@@ -24,6 +24,8 @@ final class PostTableViewCell: UITableViewCell {
     private lazy var cellImage: UIImageView = {
         $0.backgroundColor = BackgroundColors.img
         $0.contentMode = .scaleAspectFit
+        $0.isUserInteractionEnabled = true
+        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showDetails)))
         return $0
     }(UIImageView())
 
@@ -61,7 +63,21 @@ final class PostTableViewCell: UITableViewCell {
 
     @objc func likePlus(){
         posts[cellIndex].likes += 1
-        (superview as? UITableView)?.reloadRows(at: [IndexPath(row: cellIndex, section: 1)], with: .none)
+        cellLikes.text = "Likes: \(posts[cellIndex].likes)"
+    }
+
+    @objc func showDetails(){
+        posts[cellIndex].views += 1
+        cellViews.text = "Views: \(posts[cellIndex].views)"
+
+        if let navigationController = ((superview as? UITableView)?.dataSource as? UIViewController)?.navigationController {
+            let vc = ProfileDetailsViewController()
+            vc.cellIndex = cellIndex
+            let nc = UINavigationController(rootViewController: vc)
+            nc.modalPresentationStyle = .fullScreen
+            nc.modalTransitionStyle = .flipHorizontal
+            navigationController.present(nc, animated: true)
+        }
     }
 
     private func addSubviews() {
@@ -99,6 +115,8 @@ final class PostTableViewCell: UITableViewCell {
     }
 
     func config(_ index: Int) {
+
+        print("index:", index)
 
         cellIndex = index
 
