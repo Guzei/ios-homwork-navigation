@@ -10,6 +10,7 @@ import UIKit
 final class ProfileDetailsViewController: UIViewController, UITableViewDataSource {
     
     public var cellIndex = 0
+    public var depth = true
 
     private let tableView = UITableView(frame: .init(x: 0, y: 0, width: screenW, height: screenH), style: .grouped)
 
@@ -31,7 +32,7 @@ final class ProfileDetailsViewController: UIViewController, UITableViewDataSourc
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = PostTableViewCell()
-        cell.config(cellIndex)
+        cell.config(cellIndex, depth)
         return cell
     }
 }

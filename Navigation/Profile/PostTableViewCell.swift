@@ -13,6 +13,7 @@ import UIKit
 final class PostTableViewCell: UITableViewCell {
 
     var cellIndex = 0
+    public var depth = true                             // флаг, выключающий цикл открытий по нажатию на картинку
 
     private lazy var cellAuthor: UILabel = {
         $0.font = .boldSystemFont(ofSize: 20)
@@ -24,8 +25,6 @@ final class PostTableViewCell: UITableViewCell {
     private lazy var cellImage: UIImageView = {
         $0.backgroundColor = BackgroundColors.img
         $0.contentMode = .scaleAspectFit
-        $0.isUserInteractionEnabled = true
-        $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showDetails)))
         return $0
     }(UIImageView())
 
@@ -73,6 +72,7 @@ final class PostTableViewCell: UITableViewCell {
         if let navigationController = ((superview as? UITableView)?.dataSource as? UIViewController)?.navigationController {
             let vc = ProfileDetailsViewController()
             vc.cellIndex = cellIndex
+            vc.depth = false
             let nc = UINavigationController(rootViewController: vc)
             nc.modalPresentationStyle = .fullScreen
             nc.modalTransitionStyle = .flipHorizontal
@@ -114,11 +114,16 @@ final class PostTableViewCell: UITableViewCell {
         ])
     }
 
-    func config(_ index: Int) {
+    func config(_ index: Int, _ depth: Bool = true) {
 
-        print("index:", index)
+        print("index:", index, depth)
 
         cellIndex = index
+
+        if depth {
+            cellImage.isUserInteractionEnabled = true
+            cellImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showDetails)))
+        }
 
         cellAuthor.text = posts[index].author
         cellImage.image = UIImage(named: posts[index].image)
