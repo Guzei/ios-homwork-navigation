@@ -19,7 +19,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.makeKeyAndVisible()
         
         self.window = window
-
-        print("Безопасный отступ свехру.\n window.safeAreaInsets.top", window.safeAreaInsets.top)
     }
 }

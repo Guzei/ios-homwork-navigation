@@ -59,3 +59,5 @@ var posts: [Post] = [
 ]
 
 let photos = ["IMG_7536","1c","1s","2c","2s","3c","4c","5c","6c","7c","8c","gomerSimpsonMoning","9c","10c","10s","11c","11s","12c","13c","14c","guest"]
+
+let passwordLengthMin = 4

@@ -9,8 +9,6 @@ import UIKit
 
 final class ProfileHeaderView: UIView {
 
-    // MARK: - variable declaration
-
     private lazy var avatarSize = CGFloat(headerHeight - 3 * Paddings.page - 50.0)
 
     private lazy var avatarImageView: UIImageView = {
@@ -21,14 +19,12 @@ final class ProfileHeaderView: UIView {
         $0.layer.borderColor = UIColor.white.cgColor
         $0.isUserInteractionEnabled = true
         $0.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(avatarAnimation)))
-        $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIImageView())
 
     private lazy var fullNameLabel: UILabel = {
         $0.text = "Gomer"
         $0.font = .boldSystemFont(ofSize: 18)
-        $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
 
@@ -36,7 +32,6 @@ final class ProfileHeaderView: UIView {
         $0.text = "— Moning!"
         $0.font = .systemFont(ofSize: 14)
         $0.textColor = .gray
-        $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
 
@@ -50,8 +45,6 @@ final class ProfileHeaderView: UIView {
         $0.leftViewMode = .always
         $0.delegate = self
         $0.clearButtonMode = .whileEditing
-        $0.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
-        $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UITextField())
 
@@ -63,8 +56,7 @@ final class ProfileHeaderView: UIView {
         $0.layer.shadowRadius = 4
         $0.layer.shadowColor = UIColor.black.cgColor
         $0.layer.shadowOpacity = 0.7
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(setStatus), for: .touchUpInside)
         return $0
     }(UIButton())
 
@@ -90,10 +82,6 @@ final class ProfileHeaderView: UIView {
     private lazy var avatarCenter = avatarImageView.center
     private lazy var avatarBounds = avatarImageView.layer.bounds
 
-
-
-    // MARK: - implementation
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = BackgroundColors.profileHeader
@@ -105,6 +93,7 @@ final class ProfileHeaderView: UIView {
     }
 
     private func addSubviews() {
+
         addSubview(fullNameLabel)
         addSubview(statusLabel)
         addSubview(statusTextField)
@@ -112,6 +101,7 @@ final class ProfileHeaderView: UIView {
         addSubview(transparentView)
         addSubview(avatarImageView)
         addSubview(buttonX)
+        subviews.forEach{ $0.translatesAutoresizingMaskIntoConstraints = false }
     }
 
     private func setConstraints() {
@@ -147,15 +137,6 @@ final class ProfileHeaderView: UIView {
         ])
     }
 
-    // вместо принудительной очистки поставил "крестик" очистки
-    @objc func buttonPressed() {
-        statusLabel.text = statusText
-    }
-
-    @objc func statusTextChanged() {
-        statusText = statusTextField.text ?? "not input new status yet"
-    }
-
     func changeTitle(text: String) {
         fullNameLabel.text = text
     }
@@ -170,8 +151,7 @@ final class ProfileHeaderView: UIView {
             avatarImageView.layer.cornerRadius = 0
             avatarImageView.center = transparentView.center
             avatarImageView.layer.bounds = CGRect(x: 0, y: 0, width: screenW, height: screenW)
-            // tabBar?.isHidden = true          // так красивее. Правда? Ой, только где анимация?
-            tabBar?.frame.origin.y = screenH    // Нашёл! А так ещё красивее :)
+            tabBar?.frame.origin.y = screenH    // Вариант анимации: tabBar?.alpha = 0.0
         } completion: { _ in
             UIView.animate(withDuration: 0.3, delay: 0.0) { [self] in
                 buttonX.alpha = 1
@@ -190,16 +170,27 @@ final class ProfileHeaderView: UIView {
                 avatarImageView.center = avatarCenter
                 avatarImageView.bounds = avatarBounds
                 if let bar = tabBar {
-                    bar.frame.origin.y = screenH - bar.frame.height
+                    bar.frame.origin.y = screenH - bar.frame.height  // Вариант анимации bar.alpha = 1.0
                 }
             }
+        }
+    }
+
+    @objc func setStatus() {
+        do {
+            let status = try checkStatusField(statusTextField.text!)
+            statusLabel.text = status
+            statusTextField.text = status
+        } catch errors.statusEmpty {
+            backgroundErrorAnimation(statusTextField)
+        } catch {
+            print("Error ?")
         }
     }
 }
 
 extension ProfileHeaderView: UITextFieldDelegate {
 
-    // ввод по Enter. Было в лекции.
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         statusLabel.text = statusText
         return false

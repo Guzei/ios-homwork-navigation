@@ -24,14 +24,14 @@ final class TabBarController: UITabBarController {
             return feed
         }()
 
-        let ncProfile: UINavigationController = {
+        let ncLogin: UINavigationController = {
             let feed = UINavigationController()
             feed.setViewControllers([vcLogin], animated: true)
             feed.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.text.rectangle"), tag: 0)
             return feed
         }()
 
-        viewControllers = [ncFeed, ncProfile]
+        viewControllers = [ncFeed, ncLogin]
         selectedIndex = 1
     }
 }

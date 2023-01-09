@@ -33,7 +33,6 @@ final class ProfileViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
         ])
-        print("Как из этого извлечь заданное значение отступа сверху? tableView.topAnchor:", tableView.topAnchor)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -41,7 +40,6 @@ final class ProfileViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         navigationController?.tabBarController?.tabBar.isHidden = false
     }
-
 }
 
 extension ProfileViewController: UITableViewDataSource {
@@ -59,9 +57,21 @@ extension ProfileViewController: UITableViewDataSource {
             return PhotosTableViewCell()
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: postIdentifier, for: indexPath) as? PostTableViewCell else { fatalError() }
-            cell.config(post: posts[indexPath.row])
+            cell.config(indexPath.row)
             return cell
         }
+    }
+
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        indexPath.section == 0 ? .none : .delete
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        tableView.beginUpdates()
+        posts.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+        tableView.endUpdates()
+        tableView.reloadData()
     }
 }
 

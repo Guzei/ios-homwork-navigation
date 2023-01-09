@@ -78,11 +78,6 @@ final class PhotosTableViewCell: UITableViewCell {
             photoPreview.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Paddings.photosPreview),
 
         ])
-        // без высоты настроить не сумел
-        // высота зависит от ширины. Ниже, в экстеншене можно расчитать, исходя из ширины коллекции
-        // Здесь же только, через ширину девайса сумел
-        print("\nin photo preview:")
-        print("self.frame.width -- \(self.frame.width) -- Что это? Откуда это берётся? На всех экранах -- 320.")
         let imgWH = ((screenW - 2 * Paddings.photosPreview) - countInPreview * Paddings.photo) / (countInPreview + 0.5)
         photoPreview.heightAnchor.constraint(equalToConstant: imgWH).isActive = true // 82-87
     }
