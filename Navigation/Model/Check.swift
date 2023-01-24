@@ -39,7 +39,7 @@ public func checkLoginField(_ testString: String) throws -> String {
     return login                                                                    // возможно произошла очистка от случайных ведущих пробелов
 }
 
-public func checkPasswordField(_ testString: String) throws -> Bool {               // а пароль, предположим, может имеать ведущие пробелы
+public func checkPasswordField(_ testString: String) throws -> Bool {               // а пароль, предположим, может иметь ведущие пробелы
     guard !testString.isEmpty       else { throw errors.passwordEmpty }
     guard checkPassword(testString) else { throw errors.password(testString.count) }
     return true
